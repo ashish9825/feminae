@@ -12,3 +12,10 @@ const cardTextStyle = TextStyle(
   fontSize: 30.0,
   color: Colors.white,
 );
+
+const salonCardTextStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w500,
+  fontSize: 15.0,
+  color: Colors.blueGrey,
+);

@@ -22,7 +22,7 @@ const kConfirmPasswordInoutDecoration = InputDecoration(
 );
 
 const List<List<String>> salonFacilities = [
-  ['images/wax.svg', 'Waxing'],
+  ['images/waxing.svg', 'Waxing'],
   ['images/facial_cleanup.svg', 'Facial Cleanup'],
   ['images/bleach.svg', 'Bleach & Detan'],
   ['images/pedicure.svg', 'Pedicure'],
