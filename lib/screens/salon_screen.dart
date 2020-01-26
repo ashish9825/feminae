@@ -18,101 +18,49 @@ class _SalonScreenState extends State<SalonScreen>
   ScrollController _scrollController = ScrollController();
   bool isScrollingDown = true;
 
-  void myScroll() async {
-    _scrollController.addListener(() {
-      setState(() {});
-      // if (_scrollController.position.userScrollDirection ==
-      //     ScrollDirection.reverse) {
-      //   _showAppBar = true;
-      // }
-
-      // if (_scrollController.position.userScrollDirection ==
-      //     ScrollDirection.forward) {
-      //   _showAppBar = false;
-      // }
-      //checkVisibility();
-    });
-  }
-
   @override
   void initState() {
     super.initState();
-    myScroll();
   }
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                backgroundColor: Colors.white,
-                expandedHeight: SizeConfig.blockSizeVertical * 40,
-                floating: false,
-                pinned: true,
-                title: animatedTitle(),
-                flexibleSpace: FlexibleSpaceBar(
-                  background: topOfTheScreen(),
-                ),
-              ),
-              SliverGrid.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-                childAspectRatio: 2.0,
-                children: salonFacilities
-                    .map((item) => Stack(
-                          children: <Widget>[
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFFD2EBE5),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black12,
-                                      offset: Offset(0, 8),
-                                      blurRadius: 8),
-                                ],
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            Transform.translate(
-                                               offset: Offset(0,5),           child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.all(20.0),
-                                    child: SvgPicture.asset(
-                                      item[0],
-                                      width: SizeConfig.blockSizeHorizontal * 10,
-                                      height: SizeConfig.blockSizeHorizontal * 10,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      item[1],
-                                      style: salonCardTextStyle,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ))
-                    .toList(),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) => SizedBox(
-                    height: 20.0,
+    return WillPopScope(
+      onWillPop: () => Future.value(true),
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  backgroundColor: Colors.white,
+                  expandedHeight: SizeConfig.blockSizeVertical * 40,
+                  floating: false,
+                  pinned: true,
+                  leading: _showAppBar ? null : Container(),
+                  title: animatedTitle(),
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: topOfTheScreen(),
                   ),
-                  childCount: 1,
                 ),
-              ),
-            ],
+                SliverGrid.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 2.0,
+                    children: buildSalonGrid()),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => SizedBox(
+                      height: 20.0,
+                    ),
+                    childCount: 100,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -177,39 +125,32 @@ class _SalonScreenState extends State<SalonScreen>
     return AnimatedOpacity(
       opacity: _showAppBar ? 1.0 : 0.0,
       duration: Duration(milliseconds: 500),
-      child: Text('Salon at home'),
+      child: Text(
+        'Salon at Home',
+        style: appBarTextStyle,
+      ),
     );
   }
 
-  Widget buildSalonGrid() {
-    return GridView.count(
-      crossAxisCount: 2,
-      crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
-      children: salonFacilities
-          .map((item) => Stack(
-                children: <Widget>[
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: Container(
-                        height: SizeConfig.blockSizeHorizontal * 10,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFD2EBE5),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12,
-                                offset: Offset(0, 8),
-                                blurRadius: 8),
-                          ],
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                    ),
+  List<Widget> buildSalonGrid() {
+    return salonFacilities
+        .map((item) => Stack(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFFD2EBE5),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(0, 8),
+                          blurRadius: 8),
+                    ],
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                ),
+                Transform.translate(
+                  offset: Offset(0, 5),
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Padding(
@@ -220,14 +161,17 @@ class _SalonScreenState extends State<SalonScreen>
                           height: SizeConfig.blockSizeHorizontal * 10,
                         ),
                       ),
-                      Text(
-                        item[1],
+                      Expanded(
+                        child: Text(
+                          item[1],
+                          style: salonCardTextStyle,
+                        ),
                       )
                     ],
                   ),
-                ],
-              ))
-          .toList(),
-    );
+                ),
+              ],
+            ))
+        .toList();
   }
 }

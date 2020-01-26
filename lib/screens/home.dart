@@ -211,7 +211,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             cardIcon: cardIcon,
             cardName: categoryName,
             onPressed: () {
-              Navigator.pushReplacementNamed(context, SalonScreen.id);
+              Navigator.pushNamed(context, SalonScreen.id);
             },
           ),
           SizedBox(

@@ -19,3 +19,10 @@ const salonCardTextStyle = TextStyle(
   fontSize: 15.0,
   color: Colors.blueGrey,
 );
+
+const appBarTextStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w500,
+  fontSize: 20.0,
+  color: Colors.black87,
+);
