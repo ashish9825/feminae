@@ -20,6 +20,18 @@ const salonCardTextStyle = TextStyle(
   color: Colors.blueGrey,
 );
 
+const selectedTabStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w700,
+  fontSize: 17.0,
+);
+
+const unSelectedTabStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w500,
+  fontSize: 17.0,
+);
+
 const appBarTextStyle = TextStyle(
   fontFamily: 'Montserrat',
   fontWeight: FontWeight.w500,

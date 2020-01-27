@@ -1,4 +1,5 @@
 import 'package:feminae/constants.dart';
+import 'package:feminae/screens/salon_screen_details.dart';
 import 'package:feminae/utils/app_style.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _SalonScreenState extends State<SalonScreen>
       child: Scaffold(
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+            padding: const EdgeInsets.only(left: 00.0, right: 00.0),
             child: CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
@@ -47,7 +48,7 @@ class _SalonScreenState extends State<SalonScreen>
                 ),
                 SliverGrid.count(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 10,
+                    crossAxisSpacing: 0,
                     mainAxisSpacing: 10,
                     childAspectRatio: 2.0,
                     children: buildSalonGrid()),
@@ -134,43 +135,51 @@ class _SalonScreenState extends State<SalonScreen>
 
   List<Widget> buildSalonGrid() {
     return salonFacilities
-        .map((item) => Stack(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFD2EBE5),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          offset: Offset(0, 8),
-                          blurRadius: 8),
-                    ],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                Transform.translate(
-                  offset: Offset(0, 5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(20.0),
-                        child: SvgPicture.asset(
-                          item[0],
-                          width: SizeConfig.blockSizeHorizontal * 10,
-                          height: SizeConfig.blockSizeHorizontal * 10,
-                        ),
+        .map((item) => InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, SalonDetail.id);
+              },
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFFD2EBE5),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black12,
+                              offset: Offset(0, 8),
+                              blurRadius: 8),
+                        ],
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      Expanded(
-                        child: Text(
-                          item[1],
-                          style: salonCardTextStyle,
-                        ),
-                      )
-                    ],
-                  ),
+                    ),
+                    Transform.translate(
+                      offset: Offset(0, 5),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: SvgPicture.asset(
+                              item[0],
+                              width: SizeConfig.blockSizeHorizontal * 10,
+                              height: SizeConfig.blockSizeHorizontal * 10,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              item[1],
+                              style: salonCardTextStyle,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ))
         .toList();
   }
