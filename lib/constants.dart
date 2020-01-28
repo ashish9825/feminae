@@ -39,3 +39,8 @@ const List<List<String>> cleaningServices = [
   ['images/carpet_cleaning.svg', 'Carpet Cleaning'],
   ['images/car_cleaning.svg', 'Car Cleaning'],
 ];
+
+const List<List<String>> electronics = [
+  ['images/electrician.svg', 'Electricians'],
+  ['images/appliance_repair.svg', 'Appliance Repair'],
+];

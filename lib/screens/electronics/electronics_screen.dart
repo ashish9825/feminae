@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
 
-class CleaningScreen extends StatefulWidget {
-  static String id = 'cleaning_screen';
+class ElectronicsScreen extends StatefulWidget {
+  static String id = 'electronics_screen';
+
   @override
-  _CleaningScreenState createState() => _CleaningScreenState();
+  _ElectronicsScreenState createState() => _ElectronicsScreenState();
 }
 
-class _CleaningScreenState extends State<CleaningScreen> with SingleTickerProviderStateMixin {
+class _ElectronicsScreenState extends State<ElectronicsScreen> {
   bool _showAppBar = false;
   ScrollController _scrollController = ScrollController();
   bool isScrollingDown = true;
@@ -43,18 +44,9 @@ class _CleaningScreenState extends State<CleaningScreen> with SingleTickerProvid
                   background: topOfTheScreen(),
                 ),
               ),
-              SliverGrid.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 0,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 2.0,
-                  children: buildCleaningGrid()),
               SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) => SizedBox(
-                    height: 20.0,
-                  ),
-                  childCount: 1,
+                delegate: SliverChildListDelegate(
+                  buildElectronicsList(),
                 ),
               ),
             ],
@@ -87,16 +79,16 @@ class _CleaningScreenState extends State<CleaningScreen> with SingleTickerProvid
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'CLEANING',
+                  'ELECTRONICS',
                   style: TextStyle(
-                      color: Color(0xFF2489a8),
+                      color: Color(0xFF6a52ad),
                       fontWeight: FontWeight.normal,
                       fontSize: SizeConfig.safeBlockHorizontal * 6),
                 ),
                 Text(
                   'SERVICES',
                   style: TextStyle(
-                      color: Color(0xFF207c97),
+                      color: Color(0xFF614A9E),
                       fontWeight: FontWeight.bold,
                       fontSize: SizeConfig.safeBlockHorizontal * 6),
                 )
@@ -105,7 +97,7 @@ class _CleaningScreenState extends State<CleaningScreen> with SingleTickerProvid
             Container(
               margin: EdgeInsets.all(8.0),
               child: SvgPicture.asset(
-                'images/clean.svg',
+                'images/electronics.svg',
                 height: SizeConfig.blockSizeHorizontal * 50,
                 width: SizeConfig.blockSizeHorizontal * 50,
               ),
@@ -119,28 +111,20 @@ class _CleaningScreenState extends State<CleaningScreen> with SingleTickerProvid
       opacity: _showAppBar ? 1.0 : 0.0,
       duration: Duration(milliseconds: 500),
       child: Text(
-        'Cleaning Services',
+        'Electronics',
         style: appBarTextStyle,
       ),
     );
   }
 
-  List<Widget> buildCleaningGrid() {
-    return cleaningServices
+  List<Widget> buildElectronicsList() {
+    return electronics
         .map((item) => InkWell(
               onTap: () {
                 int index;
-                if (item[1] == 'Washroom Cleaning')
+                if (item[1] == 'Electricians')
                   index = 0;
-                else if (item[1] == 'Kitchen Cleaning')
-                  index = 1;
-                else if (item[1] == 'Sofa Cleaning')
-                  index = 2;
-                else if (item[1] == 'Home Cleaning')
-                  index = 3;
-                else if (item[1] == 'Carpet Cleaning')
-                  index = 4;
-                else if (item[1] == 'Car Cleaning') index = 5;
+                else if (item[1] == 'Appliance Repair') index = 1;
 
                 Navigator.push(
                   context,
@@ -162,8 +146,9 @@ class _CleaningScreenState extends State<CleaningScreen> with SingleTickerProvid
                 child: Stack(
                   children: <Widget>[
                     Container(
+                      height: SizeConfig.blockSizeHorizontal*30,
                       decoration: BoxDecoration(
-                        color: Color(0xFFBBE0EE),
+                        color: Color(0xFFcfbddb),
                         boxShadow: [
                           BoxShadow(
                               color: Colors.black12,
@@ -176,20 +161,21 @@ class _CleaningScreenState extends State<CleaningScreen> with SingleTickerProvid
                     Transform.translate(
                       offset: Offset(0, 5),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.all(20.0),
                             child: SvgPicture.asset(
                               item[0],
-                              width: SizeConfig.blockSizeHorizontal * 10,
-                              height: SizeConfig.blockSizeHorizontal * 10,
+                              width: SizeConfig.blockSizeHorizontal * 20,
+                              height: SizeConfig.blockSizeHorizontal * 20,
                             ),
                           ),
-                          Expanded(
+                          Container(
                             child: Text(
                               item[1],
-                              style: salonCardTextStyle,
+                              style: electronicsCardStyle,
                             ),
                           )
                         ],

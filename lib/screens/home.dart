@@ -1,4 +1,5 @@
 import 'package:feminae/screens/cleaning/cleaning_screen.dart';
+import 'package:feminae/screens/electronics/electronics_screen.dart';
 import 'package:feminae/screens/salon/salon_screen.dart';
 import 'package:feminae/stack_example.dart';
 import 'package:feminae/utils/profile_clipper.dart';
@@ -238,6 +239,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return SalonScreen();
       case 'Cleaning':
         return CleaningScreen();
+      case 'Electronics':
+        return ElectronicsScreen();
       default:
         return null;
     }
