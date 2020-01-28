@@ -30,3 +30,12 @@ const List<List<String>> salonFacilities = [
   ['images/hair_care.svg', 'Hair Care'],
   ['images/threading.svg', 'Threading'],
 ];
+
+const List<List<String>> cleaningServices = [
+  ['images/washroom_cleaning.svg', 'Washroom Cleaning'],
+  ['images/kitchen_cleaning.svg', 'Kitchen Cleaning'],
+  ['images/sofa_cleaning.svg', 'Sofa Cleaning'],
+  ['images/home_cleaning.svg', 'Home Cleaning'],
+  ['images/carpet_cleaning.svg', 'Carpet Cleaning'],
+  ['images/car_cleaning.svg', 'Car Cleaning'],
+];

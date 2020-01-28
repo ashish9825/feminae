@@ -3,8 +3,6 @@ import 'package:feminae/utils/custom_icons.dart';
 import 'package:feminae/utils/data.dart';
 import 'dart:math';
 
-import 'package:flutter_svg/flutter_svg.dart';
-
 class StackExample extends StatefulWidget {
   static String id = 'stackexample_screen';
   @override

@@ -1,5 +1,5 @@
 import 'package:feminae/constants.dart';
-import 'package:feminae/screens/salon_screen_details.dart';
+import 'package:feminae/screens/salon/salon_screen_details.dart';
 import 'package:feminae/utils/app_style.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -30,38 +30,36 @@ class _SalonScreenState extends State<SalonScreen>
     return WillPopScope(
       onWillPop: () => Future.value(true),
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 00.0, right: 00.0),
-            child: CustomScrollView(
-              slivers: <Widget>[
-                SliverAppBar(
-                  backgroundColor: Colors.white,
-                  expandedHeight: SizeConfig.blockSizeVertical * 40,
-                  floating: false,
-                  pinned: true,
-                  leading: _showAppBar ? null : Container(),
-                  title: animatedTitle(),
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: topOfTheScreen(),
-                  ),
+          child: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: Colors.white,
+                expandedHeight: SizeConfig.blockSizeVertical * 40,
+                floating: false,
+                pinned: true,
+                leading: _showAppBar ? null : Container(),
+                title: animatedTitle(),
+                flexibleSpace: FlexibleSpaceBar(
+                  background: topOfTheScreen(),
                 ),
-                SliverGrid.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 2.0,
-                    children: buildSalonGrid()),
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => SizedBox(
-                      height: 20.0,
-                    ),
-                    childCount: 100,
+              ),
+              SliverGrid.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 0,
+                  mainAxisSpacing: 10,
+                  childAspectRatio: 2.0,
+                  children: buildSalonGrid()),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => SizedBox(
+                    height: 20.0,
                   ),
+                  childCount: 1,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -78,15 +76,17 @@ class _SalonScreenState extends State<SalonScreen>
     return VisibilityDetector(
       key: Key("Unique Key"),
       onVisibilityChanged: (VisibilityInfo info) {
-        setState(() {
-          if (info.visibleFraction == 0.0) {
-            _showAppBar = true;
-          }
+        if (this.mounted) {
+          setState(() {
+            if (info.visibleFraction == 0.0) {
+              _showAppBar = true;
+            }
 
-          if (info.visibleFraction > 0.0) {
-            _showAppBar = false;
-          }
-        });
+            if (info.visibleFraction > 0.0) {
+              _showAppBar = false;
+            }
+          });
+        }
       },
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -137,10 +137,37 @@ class _SalonScreenState extends State<SalonScreen>
     return salonFacilities
         .map((item) => InkWell(
               onTap: () {
-                Navigator.pushNamed(context, SalonDetail.id);
+                int index;
+                if (item[1] == 'Waxing')
+                  index = 0;
+                else if (item[1] == 'Facial Cleanup')
+                  index = 1;
+                else if (item[1] == 'Bleach & Detan')
+                  index = 2;
+                else if (item[1] == 'Pedicure')
+                  index = 3;
+                else if (item[1] == 'Manicure')
+                  index = 4;
+                else if (item[1] == 'Hair Care')
+                  index = 5;
+                else if (item[1] == 'Threading') index = 6;
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (c, a1, a2) => SalonDetail(
+                      tabIndex: index,
+                    ),
+                    transitionsBuilder: (c, anim, a2, child) => FadeTransition(
+                      opacity: anim,
+                      child: child,
+                    ),
+                    transitionDuration: Duration(milliseconds: 100),
+                  ),
+                );
               },
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                margin: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 10.0),
                 child: Stack(
                   children: <Widget>[
                     Container(

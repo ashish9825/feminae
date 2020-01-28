@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 
 class SalonDetail extends StatefulWidget {
   static String id = 'salon_details_screen';
+
+  final tabIndex;
+
+  const SalonDetail({Key key, this.tabIndex}) : super(key: key);
+
   @override
   _SalonDetailState createState() => _SalonDetailState();
 }
@@ -16,7 +21,7 @@ class _SalonDetailState extends State<SalonDetail> with SingleTickerProviderStat
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _tabController = TabController(vsync: this, length: 3);
+    _tabController = TabController(vsync: this, length: 7, initialIndex: widget.tabIndex);
   }
 
   @override
@@ -35,8 +40,12 @@ class _SalonDetailState extends State<SalonDetail> with SingleTickerProviderStat
               bottom: TabBar(
                 tabs: <Tab>[
                   Tab(text: 'Waxing'),
+                  Tab(text: 'Facial Cleanup',),
+                  Tab(text: 'Bleach & Detan',),
                   Tab(text: 'Pedicure'),
                   Tab(text: 'Manicure'),
+                  Tab(text: 'Hair Care',),
+                  Tab(text: 'Threading',)
                 ],
                 controller: _tabController,
                 indicatorColor: Color(0xFF3A499A),
@@ -44,6 +53,7 @@ class _SalonDetailState extends State<SalonDetail> with SingleTickerProviderStat
                 unselectedLabelStyle: unSelectedTabStyle,
                 labelColor: Colors.black87,
                 unselectedLabelColor: Colors.black45,
+                isScrollable: true,
               ),
             )
           ];
@@ -51,8 +61,12 @@ class _SalonDetailState extends State<SalonDetail> with SingleTickerProviderStat
         body: TabBarView(
           children: <Widget>[
             Text('Waxing',),
+            Text('Facial Cleanup'),
+            Text('Bleach & Detan'),
             Text('Pedicure'),
-            Text('Manicure')
+            Text('Manicure'),
+            Text('Hair Care'),
+            Text('Threading'),
           ],
           controller: _tabController,
         ),

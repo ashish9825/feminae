@@ -1,4 +1,5 @@
-import 'package:feminae/screens/salon_screen.dart';
+import 'package:feminae/screens/cleaning/cleaning_screen.dart';
+import 'package:feminae/screens/salon/salon_screen.dart';
 import 'package:feminae/stack_example.dart';
 import 'package:feminae/utils/profile_clipper.dart';
 import 'package:flutter/material.dart';
@@ -211,7 +212,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             cardIcon: cardIcon,
             cardName: categoryName,
             onPressed: () {
-              Navigator.pushNamed(context, SalonScreen.id);
+              Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (c, a1, a2) => selectRouteScreen(),
+                    transitionsBuilder: (c, anim, a2, child) => FadeTransition(
+                      opacity: anim,
+                      child: child,
+                    ),
+                    transitionDuration: Duration(milliseconds: 100),
+                  ));
             },
           ),
           SizedBox(
@@ -220,6 +230,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+
+  Widget selectRouteScreen() {
+    switch (categoryName) {
+      case 'Salon':
+        return SalonScreen();
+      case 'Cleaning':
+        return CleaningScreen();
+      default:
+        return null;
+    }
   }
 }
 

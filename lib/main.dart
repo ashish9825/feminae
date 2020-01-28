@@ -1,7 +1,7 @@
 import 'package:feminae/dashboard.dart';
 import 'package:feminae/screens/login_screeen.dart';
-import 'package:feminae/screens/salon_screen.dart';
-import 'package:feminae/screens/salon_screen_details.dart';
+import 'package:feminae/screens/salon/salon_screen.dart';
+import 'package:feminae/screens/salon/salon_screen_details.dart';
 import 'package:feminae/screens/signup_screen.dart';
 import 'package:feminae/stack_example.dart';
 import 'package:flutter/material.dart';
