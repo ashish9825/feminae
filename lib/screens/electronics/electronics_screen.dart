@@ -1,5 +1,6 @@
 import 'package:feminae/constants.dart';
-import 'package:feminae/screens/cleaning/cleaning_screen_details.dart';
+import 'package:feminae/screens/electronics/appliance_screen.dart';
+import 'package:feminae/screens/electronics/electrician_screen.dart';
 import 'package:feminae/utils/app_style.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -81,14 +82,14 @@ class _ElectronicsScreenState extends State<ElectronicsScreen> {
                 Text(
                   'ELECTRONICS',
                   style: TextStyle(
-                      color: Color(0xFF6a52ad),
+                      color: Color(0xFF5487c4),
                       fontWeight: FontWeight.normal,
                       fontSize: SizeConfig.safeBlockHorizontal * 6),
                 ),
                 Text(
                   'SERVICES',
                   style: TextStyle(
-                      color: Color(0xFF614A9E),
+                      color: Color(0xFF4179be),
                       fontWeight: FontWeight.bold,
                       fontSize: SizeConfig.safeBlockHorizontal * 6),
                 )
@@ -121,17 +122,16 @@ class _ElectronicsScreenState extends State<ElectronicsScreen> {
     return electronics
         .map((item) => InkWell(
               onTap: () {
-                int index;
+                Widget selectRoute;
                 if (item[1] == 'Electricians')
-                  index = 0;
-                else if (item[1] == 'Appliance Repair') index = 1;
+                  selectRoute = ElectricianScreen();
+                else if (item[1] == 'Appliance Repair')
+                  selectRoute = ApplianceScreen();
 
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (c, a1, a2) => CleaningDetail(
-                      tabIndex: index,
-                    ),
+                    pageBuilder: (c, a1, a2) => selectRoute,
                     transitionsBuilder: (c, anim, a2, child) => FadeTransition(
                       opacity: anim,
                       child: child,
@@ -146,7 +146,7 @@ class _ElectronicsScreenState extends State<ElectronicsScreen> {
                 child: Stack(
                   children: <Widget>[
                     Container(
-                      height: SizeConfig.blockSizeHorizontal*30,
+                      height: SizeConfig.blockSizeHorizontal * 30,
                       decoration: BoxDecoration(
                         color: Color(0xFFcfbddb),
                         boxShadow: [
@@ -190,7 +190,7 @@ class _ElectronicsScreenState extends State<ElectronicsScreen> {
 
   @override
   void dispose() {
-    _scrollController.removeListener(() {}); 
+    _scrollController.removeListener(() {});
     super.dispose();
   }
 }

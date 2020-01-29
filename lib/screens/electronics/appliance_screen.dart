@@ -1,19 +1,19 @@
+import 'package:feminae/constants.dart';
 import 'package:feminae/screens/electronics/electrician_screen_detail.dart';
 import 'package:feminae/utils/app_style.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
-import 'package:feminae/constants.dart';
 
-class ElectricianScreen extends StatefulWidget {
-  static String id = 'electrician_screen';
+class ApplianceScreen extends StatefulWidget {
+  static String id = 'appliance_screen';
 
   @override
-  _ElectricianScreenState createState() => _ElectricianScreenState();
+  _ApplianceScreenState createState() => _ApplianceScreenState();
 }
 
-class _ElectricianScreenState extends State<ElectricianScreen> {
+class _ApplianceScreenState extends State<ApplianceScreen> {
   bool _showAppBar = false;
   ScrollController _scrollController = ScrollController();
   bool isScrollingDown = true;
@@ -90,16 +90,16 @@ class _ElectricianScreenState extends State<ElectricianScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'ELECTRICAL',
+                    'APPLIANCE',
                     style: TextStyle(
-                        color: Color(0xFF808080),
+                        color: Color(0xFFe60400),
                         fontWeight: FontWeight.normal,
                         fontSize: SizeConfig.safeBlockHorizontal * 6),
                   ),
                   Text(
-                    'OPERATIONS',
+                    'REPAIR',
                     style: TextStyle(
-                        color: Color(0xFF7e7e7e),
+                        color: Color(0xFFcc0300),
                         fontWeight: FontWeight.bold,
                         fontSize: SizeConfig.safeBlockHorizontal * 6),
                   )
@@ -111,7 +111,7 @@ class _ElectricianScreenState extends State<ElectricianScreen> {
               child: Container(
                 margin: EdgeInsets.all(8.0),
                 child: SvgPicture.asset(
-                  'images/electrician_head.svg',
+                  'images/appliance_head.svg',
                   height: SizeConfig.blockSizeHorizontal * 50,
                   width: SizeConfig.blockSizeHorizontal * 50,
                 ),
@@ -176,7 +176,7 @@ class _ElectricianScreenState extends State<ElectricianScreen> {
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                        color: Color(0xFFd9d9d9),
+                        color: Color(0xFFfce99c),
                         boxShadow: [
                           BoxShadow(
                               color: Colors.black12,

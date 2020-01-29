@@ -22,7 +22,7 @@ class _ElectricianDetailState extends State<ElectricianDetail>
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _tabController = TabController(vsync: this, length: 9);
+    _tabController = TabController(vsync: this, length: 9, initialIndex: widget.tabIndex);
   }
 
   @override

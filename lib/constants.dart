@@ -51,8 +51,13 @@ const List<List<String>> electricianServices = [
   ['images/light.svg', 'Light'],
   ['images/chandelier.svg', 'Chandelier'],
   ['images/inverter.svg', 'Inverter & Stabilizer'],
-  ['images/appliance.svg', 'Wiring'],
+  ['images/wire.svg', 'Wiring'],
   ['images/bell.svg', 'Door Bell'],
   ['images/driller.svg', 'Drill & Put'],
   ['images/room_heater.svg', 'Heater'],
+];
+
+const List<List<String>> applianceRepair = [
+  ['images/washing_machine.svg', 'Washing Machine Service & Repair']
+  
 ];
