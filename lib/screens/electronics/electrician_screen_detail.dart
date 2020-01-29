@@ -2,18 +2,18 @@ import 'package:feminae/constants.dart';
 import 'package:feminae/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
-class CleaningDetail extends StatefulWidget {
-  static String id = 'cleaning_screen_details';
+class ElectricianDetail extends StatefulWidget {
+  static String id = 'electrician_detail_screen';
 
   final tabIndex;
 
-  const CleaningDetail({Key key, this.tabIndex}) : super(key: key);
+  const ElectricianDetail({Key key, this.tabIndex}) : super(key: key);
 
   @override
-  _CleaningDetailState createState() => _CleaningDetailState();
+  _ElectricianDetailState createState() => _ElectricianDetailState();
 }
 
-class _CleaningDetailState extends State<CleaningDetail>
+class _ElectricianDetailState extends State<ElectricianDetail>
     with SingleTickerProviderStateMixin {
   ScrollController _scrollController;
   TabController _tabController;
@@ -22,8 +22,7 @@ class _CleaningDetailState extends State<CleaningDetail>
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _tabController =
-        TabController(vsync: this, length: 6, initialIndex: widget.tabIndex);
+    _tabController = TabController(vsync: this, length: 9);
   }
 
   @override
@@ -35,7 +34,7 @@ class _CleaningDetailState extends State<CleaningDetail>
           return <Widget>[
             SliverAppBar(
               title: Text(
-                'Cleaning Services',
+                'Electrician at Home',
                 style: appBarTextStyle,
               ),
               backgroundColor: Colors.white,
@@ -44,7 +43,7 @@ class _CleaningDetailState extends State<CleaningDetail>
               forceElevated: innerBoxIsScrolled,
               bottom: TabBar(
                 tabs:
-                    cleaningServices.map((item) => Tab(text: item[1])).toList(),
+                    electricianServices.map((item) => Tab(text: item[1])).toList(),
                 controller: _tabController,
                 indicatorColor: Color(0xFF3A499A),
                 labelStyle: selectedTabStyle,
@@ -57,7 +56,7 @@ class _CleaningDetailState extends State<CleaningDetail>
           ];
         },
         body: TabBarView(
-          children: cleaningServices.map((item) => Text(item[1])).toList(),
+          children: electricianServices.map((item) => Text(item[1])).toList(),
           controller: _tabController,
         ),
       ),
