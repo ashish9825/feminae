@@ -21,6 +21,7 @@ class _ElectricianScreenState extends State<ElectricianScreen> {
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
   }
 
   @override

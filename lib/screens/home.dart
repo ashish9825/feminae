@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ClipOval(
                   clipper: ProfileClipper(),
                   child: Image.asset(
-                    'images/ashish.jpg',
+                    'images/ashish.jpeg',
                     width: ScreenUtil().setWidth(160),
                     height: ScreenUtil().setHeight(160),
                     fit: BoxFit.cover,

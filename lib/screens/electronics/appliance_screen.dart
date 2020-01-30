@@ -1,5 +1,5 @@
 import 'package:feminae/constants.dart';
-import 'package:feminae/screens/electronics/electrician_screen_detail.dart';
+import 'package:feminae/screens/electronics/appliance_screen_detail.dart';
 import 'package:feminae/utils/app_style.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +21,7 @@ class _ApplianceScreenState extends State<ApplianceScreen> {
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
   }
 
   @override
@@ -126,39 +127,39 @@ class _ApplianceScreenState extends State<ApplianceScreen> {
       opacity: _showAppBar ? 1.0 : 0.0,
       duration: Duration(milliseconds: 500),
       child: Text(
-        'Electricians',
+        'Appliance Repair',
         style: appBarTextStyle,
       ),
     );
   }
 
   List<Widget> buildElectricianGrid() {
-    return electricianServices
+    return applianceRepair
         .map((item) => InkWell(
               onTap: () {
                 int index;
-                if (item[1] == 'Switch & Socket')
+                if (item[1] == 'Washing Machine Repair')
                   index = 0;
-                else if (item[1] == 'Fan')
+                else if (item[1] == 'AC Service & Repair')
                   index = 1;
-                else if (item[1] == 'Light')
+                else if (item[1] == 'Geyser Repair')
                   index = 2;
-                else if (item[1] == 'Chandelier')
+                else if (item[1] == 'Microwave Repair')
                   index = 3;
-                else if (item[1] == 'Inverter & Stabilizer')
+                else if (item[1] == 'Refrigerator Repair')
                   index = 4;
-                else if (item[1] == 'Wiring')
+                else if (item[1] == 'Stove & Chimney Repair')
                   index = 5;
-                else if (item[1] == 'Door Bell')
+                else if (item[1] == 'Television Repair')
                   index = 6;
-                else if (item[1] == 'Drill & Put')
+                else if (item[1] == 'Water Purifier Repair')
                   index = 7;
-                else if (item[1] == 'Heater') index = 8;
+                else if (item[1] == 'Computer Systems Repairing') index = 8;
 
                 Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (c, a1, a2) => ElectricianDetail(
+                    pageBuilder: (c, a1, a2) => ApplianceDetail(
                       tabIndex: index,
                     ),
                     transitionsBuilder: (c, anim, a2, child) => FadeTransition(

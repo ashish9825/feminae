@@ -2,26 +2,26 @@ import 'package:feminae/constants.dart';
 import 'package:feminae/utils/app_style.dart';
 import 'package:flutter/material.dart';
 
-class ElectricianDetail extends StatefulWidget {
-  static String id = 'electrician_detail_screen';
+class ApplianceDetail extends StatefulWidget {
+  static String id = 'appliance_detail_screen';
 
   final tabIndex;
 
-  const ElectricianDetail({Key key, this.tabIndex}) : super(key: key);
+  const ApplianceDetail({Key key, this.tabIndex}) : super(key: key);
 
   @override
-  _ElectricianDetailState createState() => _ElectricianDetailState();
+  _ApplianceDetailState createState() => _ApplianceDetailState();
 }
 
-class _ElectricianDetailState extends State<ElectricianDetail>
+class _ApplianceDetailState extends State<ApplianceDetail>
     with SingleTickerProviderStateMixin {
   ScrollController _scrollController;
   TabController _tabController;
 
-  @override
+@override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
+     _scrollController = ScrollController();
     _tabController = TabController(vsync: this, length: 9, initialIndex: widget.tabIndex);
   }
 
@@ -34,7 +34,7 @@ class _ElectricianDetailState extends State<ElectricianDetail>
           return <Widget>[
             SliverAppBar(
               title: Text(
-                'Electrician at Home',
+                'Appliance Repair',
                 style: appBarTextStyle,
               ),
               backgroundColor: Colors.white,
@@ -43,7 +43,7 @@ class _ElectricianDetailState extends State<ElectricianDetail>
               forceElevated: innerBoxIsScrolled,
               bottom: TabBar(
                 tabs:
-                    electricianServices.map((item) => Tab(text: item[1])).toList(),
+                    applianceRepair.map((item) => Tab(text: item[1])).toList(),
                 controller: _tabController,
                 indicatorColor: Color(0xFF3A499A),
                 labelStyle: selectedTabStyle,
@@ -56,7 +56,7 @@ class _ElectricianDetailState extends State<ElectricianDetail>
           ];
         },
         body: TabBarView(
-          children: electricianServices.map((item) => Text(item[1])).toList(),
+          children: applianceRepair.map((item) => Text(item[1])).toList(),
           controller: _tabController,
         ),
       ),
