@@ -15,7 +15,7 @@ class ApplianceScreen extends StatefulWidget {
 
 class _ApplianceScreenState extends State<ApplianceScreen> {
   bool _showAppBar = false;
-  ScrollController _scrollController = ScrollController();
+  ScrollController _scrollController;
   bool isScrollingDown = true;
 
   @override

@@ -1,6 +1,8 @@
 import 'package:feminae/screens/cleaning/cleaning_screen.dart';
+import 'package:feminae/screens/decorations/decoration_screen.dart';
 import 'package:feminae/screens/electronics/electronics_screen.dart';
 import 'package:feminae/screens/salon/salon_screen.dart';
+import 'package:feminae/screens/stiching/stiching_screen.dart';
 import 'package:feminae/stack_example.dart';
 import 'package:feminae/utils/profile_clipper.dart';
 import 'package:flutter/material.dart';
@@ -184,7 +186,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   controller: controller,
                   reverse: true,
                   itemBuilder: (context, index) {
-                    return Container();
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (c, a1, a2) =>
+                                  selectRouteInStack(index),
+                              transitionsBuilder: (c, anim, a2, child) =>
+                                  FadeTransition(
+                                opacity: anim,
+                                child: child,
+                              ),
+                              transitionDuration: Duration(milliseconds: 100),
+                            ));
+                      },
+                      child: Container(),
+                    );
                   },
                 ),
               )
@@ -239,10 +257,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         return SalonScreen();
       case 'Cleaning':
         return CleaningScreen();
+      case 'Stiching':
+        return StichingScreen();
       case 'Electronics':
         return ElectronicsScreen();
       default:
         return null;
+    }
+  }
+
+  Widget selectRouteInStack(int pageIndex) {
+    switch (pageIndex) {
+      case 0:
+        return SalonScreen();
+      case 1:
+        return SalonScreen();
+      case 2:
+        return StichingScreen();
+      case 3:
+        return DecorationScreen();
+      default:
+        return Container();
     }
   }
 }
@@ -335,7 +370,7 @@ class CardScrollWidget extends StatelessWidget {
                                     color: Color(0xFFee7f77),
                                     borderRadius: BorderRadius.circular(20.0)),
                                 child: Text(
-                                  'Read Later',
+                                  'Know More',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
