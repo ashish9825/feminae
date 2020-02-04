@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 const kEmailInputDecoration = InputDecoration(
   hintText: "Email",
@@ -67,4 +68,28 @@ const List<List<String>> applianceRepair = [
   ['images/television.svg', 'Television Repair'],
   ['images/water_purifier.svg', 'Water Purifier Repair'],
   ['images/pc.svg', 'Computer Systems Repairing'],
+];
+
+const List<List<String>> services = [
+  ['images/salon.svg', 'Salon'],
+  ['images/clean.svg', 'Cleaning'],
+  ['images/decoration.svg', 'Decorations'],
+  ['images/electronics.svg', 'Electronics'],
+  ['images/sewing.svg,', 'Stiching'],
+];
+
+const List profileOptionIcons = [
+  AntDesign.tagso,
+  AntDesign.smileo,
+  AntDesign.sharealt,
+  AntDesign.profile,
+  AntDesign.staro,
+];
+
+const List profileOptionStrings = [
+  'My Bookings',
+  'Help Desk',
+  'Share',
+  'About',
+  'Rate Us',
 ];

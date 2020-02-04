@@ -15,10 +15,11 @@ dependencies:
   firebase_core: ^0.4.3+2
   firebase_auth: ^0.15.3+1
   cloud_firestore: ^0.13.0+1
-  flutter_icons: ^0.3.1
+  flutter_icons: ^1.0.0+1
   flutter_svg: ^0.14.4
   progress_dialog: ^1.2.0
   flutter_widgets: ^0.1.9
+  carousel_slider: ^1.4.1
   
 
 dev_dependencies:

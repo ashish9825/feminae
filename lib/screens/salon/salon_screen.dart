@@ -4,6 +4,7 @@ import 'package:feminae/utils/app_style.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
 

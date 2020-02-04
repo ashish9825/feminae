@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:feminae/utils/custom_icons.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:feminae/utils/data.dart';
-import 'dart:math';
+import 'package:feminae/utils/size_config.dart';
+import 'package:flutter/material.dart';
 
 class StackExample extends StatefulWidget {
   static String id = 'stackexample_screen';
@@ -13,295 +13,198 @@ var cardAspectRatio = 12.0 / 16.0;
 var widgetAspectRatio = cardAspectRatio * 1.2;
 
 class _StackExampleState extends State<StackExample> {
-  var currentPage = images.length - 1.0;
+  var currentPageValue = 0;
+  PageController controller;
+  double _viewPortFraction = 0.8;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = PageController(viewportFraction: _viewPortFraction);
+  }
 
   @override
   Widget build(BuildContext context) {
-    PageController controller = PageController(initialPage: images.length - 1);
-    controller.addListener(() {
-      setState(() {
-        currentPage = controller.page;
-      });
-    });
+    // controller.addListener(() {
+    //   setState(() {
+    //     currentPageValue = controller.page;
+    //   });
+    // });
 
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-            Color(0xFF1b1e44),
-            Color(0xFF2d3447),
-          ],
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              tileMode: TileMode.clamp)),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 12.0, right: 12.0, top: 30.0, bottom: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                      icon: Icon(
-                        CustomIcons.menu,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: 30.0,
-                      ),
-                      onPressed: () {},
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("Trending",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 46.0,
-                          fontFamily: "Calibre-Semibold",
-                          letterSpacing: 1.0,
-                        )),
-                    IconButton(
-                      icon: Icon(
-                        CustomIcons.option,
-                        size: 12.0,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFFff6e6e),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 22.0, vertical: 6.0),
-                          child: Text("Animated",
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Text("25+ Stories",
-                        style: TextStyle(color: Colors.blueAccent))
-                  ],
-                ),
-              ),
-               Stack(
-                children: <Widget>[
-                  CardScrollWidget(currentPage),
-                  Positioned.fill(
-                    child: PageView.builder(
-                      itemCount: images.length,
-                      controller: controller,
-                      reverse: true,
-                      itemBuilder: (context, index) {
-                        return Container();
-                      },
-                    ),
-                  )
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text("Favourite",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 46.0,
-                          fontFamily: "Calibre-Semibold",
-                          letterSpacing: 1.0,
-                        )),
-                    IconButton(
-                      icon: Icon(
-                        CustomIcons.option,
-                        size: 12.0,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0),
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 22.0, vertical: 6.0),
-                          child: Text("Latest",
-                              style: TextStyle(color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
-                    Text("9+ Stories",
-                        style: TextStyle(color: Colors.blueAccent))
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left: 18.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: Image.asset("assets/image_02.jpg",
-                          width: 296.0, height: 222.0),
-                    ),
-                  )
-                ],
-              )
-            ],
+    return Scaffold(
+      body: ListView.builder(
+          itemCount: 1,
+          itemBuilder: (BuildContext context, int index) {
+            if (index % 2 == 0) {
+              return _carouselSlider();
+            } else {
+              return Divider();
+            }
+          }),
+    );
+  }
+
+  // Widget _buildPage() {
+  //   return PageView.builder(
+  //       controller: controller,
+  //       itemBuilder: (context, position) {
+  //         if (position == currentPageValue.floor()) {
+  //           return Transform(
+  //             transform: Matrix4.identity()
+  //               ..rotateX(currentPageValue - position),
+  //             child: Container(
+  //                 color: position % 2 == 0 ? Colors.blue : Colors.pink,
+  //                 child: Center(
+  //                     child: Text(
+  //                   'Page',
+  //                   style: TextStyle(color: Colors.white, fontSize: 22.0),
+  //                 ))),
+  //           );
+  //         } else if (position == currentPageValue.floor() + 1) {
+  //           return Transform(
+  //             transform: Matrix4.identity()
+  //               ..rotateX(currentPageValue - position),
+  //             child: Container(
+  //                 color: position % 2 == 0 ? Colors.blue : Colors.pink,
+  //                 child: Center(
+  //                     child: Text(
+  //                   'Page',
+  //                   style: TextStyle(color: Colors.white, fontSize: 22.0),
+  //                 ))),
+  //           );
+  //         } else {
+  //           return Container(
+  //             color: position % 2 == 0 ? Colors.pink : Colors.cyan,
+  //           );
+  //         }
+  //       });
+  // }
+
+  Widget _buildCarousel(BuildContext context, int carouselIndex) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text('Carousel $carouselIndex'),
+        SizedBox(
+          // you may want to use an aspect ratio here for tablet support
+          height: 200.0,
+          child: PageView.builder(
+            // store this controller in a State to save the carousel scroll position
+
+            controller: controller,
+            itemCount: images.length,
+            onPageChanged: (int value) {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            itemBuilder: (BuildContext context, int itemIndex) {
+              if (itemIndex == currentPageValue.floor()) {
+                return _buildCarouselItem(
+                    context, carouselIndex, itemIndex, 100.0);
+              } else if (itemIndex == currentPageValue.floor() + 1) {
+                return _buildCarouselItem(
+                    context, carouselIndex, itemIndex, 100.0);
+              } else {
+                return _buildCarouselItem(
+                    context, carouselIndex, itemIndex, 200.0);
+              }
+
+              // if (images.length >= itemIndex) {
+              //   //Active Page
+              //   bool active = itemIndex == currentPageValue;
+              //   return _buildStoryPage(itemIndex - 1, active);
+              // }
+            },
+            // childrenDelegate: SliverChildBuilderDelegate(
+            //     (BuildContext context, int itemIndex) {
+            //   if (itemIndex == currentPageValue.floor()) {
+            //     return _buildCarouselItem(
+            //         context, carouselIndex, itemIndex, 100.0);
+            //   } else if (itemIndex == currentPageValue.floor() + 1) {
+            //     return _buildCarouselItem(
+            //         context, carouselIndex, itemIndex, 100.0);
+            //   } else {
+            //     return _buildCarouselItem(
+            //         context, carouselIndex, itemIndex, 200.0);
+            //   }
+            // }),
           ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildCarouselItem(
+      BuildContext context, int carouselIndex, int itemIndex, double height) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      child: Container(
+          height: height,
+          decoration: BoxDecoration(
+            color: Colors.grey,
+            borderRadius: BorderRadius.all(Radius.circular(4.0)),
+          )),
+    );
+  }
+
+  _buildStoryPage(int index, bool active) {
+    //Animated Properties
+    final double blur = active ? 30 : 0;
+    final double offset = active ? 20 : 0;
+    final double top = active ? 100 : 200;
+
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeOutQuint,
+      margin: EdgeInsets.only(top: top, bottom: 50, right: 30),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          image: DecorationImage(
+            image: AssetImage(images[1]),
+          ),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black87,
+                blurRadius: blur,
+                offset: Offset(offset, offset))
+          ]),
+      child: Center(
+        child: Text(
+          title[1],
+          style: TextStyle(fontSize: 40, color: Colors.white),
         ),
       ),
     );
   }
-}
 
-class CardScrollWidget extends StatelessWidget {
-  var currentPage;
-  var padding = 20.0;
-  var verticalInset = 20.0;
-
-  CardScrollWidget(this.currentPage);
-
-  @override
-  Widget build(BuildContext context) {
-    return new AspectRatio(
-      aspectRatio: widgetAspectRatio,
-      child: LayoutBuilder(builder: (context, contraints) {
-        var width = contraints.maxWidth;
-        var height = contraints.maxHeight;
-
-        var safeWidth = width - 2 * padding;
-        var safeHeight = height - 2 * padding;
-
-        var heightOfPrimaryCard = safeHeight;
-        var widthOfPrimaryCard = heightOfPrimaryCard * cardAspectRatio;
-
-        var primaryCardLeft = safeWidth - widthOfPrimaryCard;
-        var horizontalInset = primaryCardLeft / 2;
-
-        List<Widget> cardList = new List();
-
-        for (var i = 0; i < images.length; i++) {
-          var delta = i - currentPage;
-          bool isOnRight = delta > 0;
-
-          var start = padding +
-              max(
-                  primaryCardLeft -
-                      horizontalInset * -delta * (isOnRight ? 15 : 1),
-                  0.0);
-
-          var cardItem = Positioned.directional(
-            top: padding + verticalInset * max(-delta, 0.0),
-            bottom: padding + verticalInset * max(-delta, 0.0),
-            start: start,
-            textDirection: TextDirection.rtl,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16.0),
-              child: Container(
-                decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                  BoxShadow(
-                      color: Colors.black12,
-                      offset: Offset(3.0, 6.0),
-                      blurRadius: 10.0)
-                ]),
-                child: AspectRatio(
-                  aspectRatio: cardAspectRatio,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      Image.asset(images[i], fit: BoxFit.cover),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 16.0, vertical: 8.0),
-                              child: Text(title[i],
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 25.0,
-                                      fontFamily: "Raleway")),
-                            ),
-                            SizedBox(
-                              height: 10.0,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 12.0, bottom: 12.0),
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 22.0, vertical: 6.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.blueAccent,
-                                    borderRadius: BorderRadius.circular(20.0)),
-                                child: Text("Read Later",
-                                    style: TextStyle(color: Colors.white)),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+  Widget _carouselSlider() {
+    return CarouselSlider(
+      height: 200.0,
+      initialPage: 0,
+      enlargeCenterPage: true,
+      reverse: false,
+      enableInfiniteScroll: false,
+      onPageChanged: (index) {
+        setState(() {
+          currentPageValue = index;
+        });
+      },
+      items: images.map((imageUrl) {
+        return Builder(
+          builder: (BuildContext context) {
+            return Container(
+              width: SizeConfig.screenWidth,
+              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              decoration: BoxDecoration(
+                color: Colors.green,
               ),
-            ),
-          );
-          cardList.add(cardItem);
-        }
-        return Stack(
-          children: cardList,
+              child: Image.asset(
+                imageUrl,
+                fit: BoxFit.fill,
+              ),
+            );
+          },
         );
-      }),
+      }).toList(),
     );
   }
 }

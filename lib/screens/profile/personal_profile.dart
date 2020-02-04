@@ -1,7 +1,8 @@
-import 'package:feminae/utils/app_style.dart';
+import 'package:feminae/utils/profile_clipper.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:feminae/constants.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -10,85 +11,269 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => Future.value(true),
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.white,
-        ),
-        body: SafeArea(
-          child: screenBody(),
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
   }
 
-  Widget screenBody() {
-    return Column(
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    return Center(child: screenSetUp());
+  }
 
+  Widget screenSetUp() {
+    return Column(
       children: <Widget>[
-        SizedBox(
-          height: 10.0,
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Container(
-              width: SizeConfig.blockSizeHorizontal * 30,
-              child: Text(
-                'Ashish Panjwani',
-                style: headingStyle,
-              ),
-            ),
-            SizedBox(
-              width: 20.0,
-            ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10.0),
-              child: Container(
-                width: SizeConfig.blockSizeHorizontal * 40,
-                height: SizeConfig.blockSizeHorizontal * 40,
+        Container(
+          width: SizeConfig.screenWidth,
+          color: Color(0xFFf6f9ff),
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 10.0,
+              ),    
+              ClipOval(
+                clipper: ProfileClipper(),
                 child: Image.asset(
                   'images/ashish.jpeg',
+                  width: SizeConfig.blockSizeHorizontal * 35,
+                  height: SizeConfig.blockSizeHorizontal * 35,
                   fit: BoxFit.cover,
                 ),
               ),
-            ),
-            SizedBox(
-              width: 20.0,
-            ),
-          ],
+              SizedBox(height: 10.0),
+              Text(
+                'Ashish Panjwani',
+                style: TextStyle(fontFamily: 'Poppins-Medium', fontSize: 23.0),
+              ),
+              SizedBox(height: 10.0),
+            ],
+          ),
         ),
-        GridView.builder(
-          padding: EdgeInsets.all(40.0),
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          itemCount: 4,
-          gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: EdgeInsets.all(20.0),
-                          child: Container(
-margin: EdgeInsets.all(10.0),
-                alignment: Alignment.center,
-                color: Color(0xFFd9d9d9),
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                topRight: Radius.circular(30.0)),
+            child: Container(
+              color: Colors.white,
+              width: SizeConfig.screenWidth,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    left: 20.0, right: 20.0, bottom: 20.0, top: 5.0),
                 child: Column(
                   children: <Widget>[
-                    SvgPicture.asset(
-                      'images/room_heater.svg',
-                      height: SizeConfig.blockSizeHorizontal * 10,
-                      width: SizeConfig.blockSizeHorizontal * 10,
+                    Container(
+                      margin: EdgeInsets.only(top: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Container(
+                                  color: Color(0xFFf9ecf6),
+                                  width: SizeConfig.blockSizeHorizontal * 10,
+                                  height: SizeConfig.blockSizeHorizontal * 10,
+                                  child: Icon(
+                                    AntDesign.tagso,
+                                    size: SizeConfig.blockSizeHorizontal * 5,
+                                    color: Color(0xFF9b3181),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20.0),
+                                  child: Text(
+                                    'My Bookings',
+                                    style: TextStyle(
+                                        fontFamily: 'Poppins-Medium',
+                                        fontSize: 16.0,
+                                        color: Color(0xFF6d225a)),
+                                  ))
+                            ],
+                          ),
+                          Icon(
+                            AntDesign.right,
+                            size: SizeConfig.blockSizeHorizontal * 5,
+                            color: Color(0xFF9b3181),
+                          ),
+                        ],
+                      ),
                     ),
+                    Container(
+                      margin: EdgeInsets.only(top: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Container(
+                                  color: Color(0xFFf9ecf6),
+                                  width: SizeConfig.blockSizeHorizontal * 10,
+                                  height: SizeConfig.blockSizeHorizontal * 10,
+                                  child: Icon(
+                                    AntDesign.smileo,
+                                    size: SizeConfig.blockSizeHorizontal * 5,
+                                    color: Color(0xFF9b3181),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20.0),
+                                  child: Text(
+                                    'Help Desk',
+                                    style: TextStyle(
+                                        fontFamily: 'Poppins-Medium',
+                                        fontSize: 16.0,
+                                        color: Color(0xFF624E8A)),
+                                  ))
+                            ],
+                          ),
+                          Icon(
+                            AntDesign.right,
+                            size: SizeConfig.blockSizeHorizontal * 5,
+                            color: Color(0xFF9b3181),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Container(
+                                  color: Color(0xFFf9ecf6),
+                                  width: SizeConfig.blockSizeHorizontal * 10,
+                                  height: SizeConfig.blockSizeHorizontal * 10,
+                                  child: Icon(
+                                    AntDesign.sharealt,
+                                    size: SizeConfig.blockSizeHorizontal * 5,
+                                    color: Color(0xFF9b3181),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20.0),
+                                  child: Text(
+                                    'Share',
+                                    style: TextStyle(
+                                        fontFamily: 'Poppins-Medium',
+                                        fontSize: 16.0,
+                                        color: Color(0xFF6d225a)),
+                                  ))
+                            ],
+                          ),
+                          Icon(
+                            AntDesign.right,
+                            size: SizeConfig.blockSizeHorizontal * 5,
+                            color: Color(0xFF9b3181),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(
+                        top: 15.0,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Container(
+                                  color: Color(0xFFf9ecf6),
+                                  width: SizeConfig.blockSizeHorizontal * 10,
+                                  height: SizeConfig.blockSizeHorizontal * 10,
+                                  child: Icon(
+                                    AntDesign.profile,
+                                    size: SizeConfig.blockSizeHorizontal * 5,
+                                    color: Color(0xFF9b3181),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20.0),
+                                  child: Text(
+                                    'About',
+                                    style: TextStyle(
+                                        fontFamily: 'Poppins-Medium',
+                                        fontSize: 16.0,
+                                        color: Color(0xFF6d225a)),
+                                  ))
+                            ],
+                          ),
+                          Icon(
+                            AntDesign.right,
+                            size: SizeConfig.blockSizeHorizontal * 5,
+                            color: Color(0xFF9b3181),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Container(
+                                  color: Color(0xFFf9ecf6),
+                                  width: SizeConfig.blockSizeHorizontal * 10,
+                                  height: SizeConfig.blockSizeHorizontal * 10,
+                                  child: Icon(
+                                    AntDesign.staro,
+                                    size: SizeConfig.blockSizeHorizontal * 5,
+                                    color: Color(0xFF9b3181),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.only(left: 20.0),
+                                  child: Text(
+                                    'Rate Us',
+                                    style: TextStyle(
+                                        fontFamily: 'Poppins-Medium',
+                                        fontSize: 16.0,
+                                        color: Color(0xFF6d225a)),
+                                  ))
+                            ],
+                          ),
+                          Icon(
+                            AntDesign.right,
+                            size: SizeConfig.blockSizeHorizontal * 5,
+                            color: Color(0xFF9b3181),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20.0),
+                    FlatButton(
+                        onPressed: null,
+                        child: Container(
+                            child: Text(
+                          'Log Out',
+                          style: TextStyle(
+                              fontFamily: 'Poppins-Medium', fontSize: 18.0),
+                        )))
                   ],
                 ),
               ),
-            );
-          },
+            ),
+          ),
         ),
       ],
     );

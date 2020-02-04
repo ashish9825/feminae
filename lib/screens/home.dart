@@ -5,6 +5,7 @@ import 'package:feminae/screens/salon/salon_screen.dart';
 import 'package:feminae/screens/stiching/stiching_screen.dart';
 import 'package:feminae/stack_example.dart';
 import 'package:feminae/utils/profile_clipper.dart';
+import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:feminae/utils/app_style.dart';
@@ -140,6 +141,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          Container(
+            height: SizeConfig.blockSizeHorizontal*70,
+            width: SizeConfig.screenWidth,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0)),
+              image: DecorationImage(image: AssetImage('images/main_png.png'), fit: BoxFit.fill),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.only(
               top: ScreenUtil().setHeight(40),
@@ -152,19 +161,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 IconButton(
                   icon: Icon(MyFlutterApp.short_text),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => StackExample()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => StackExample()));
+                    Scaffold.of(context).openDrawer();
                   },
                 ),
-                ClipOval(
-                  clipper: ProfileClipper(),
-                  child: Image.asset(
-                    'images/ashish.jpeg',
-                    width: ScreenUtil().setWidth(160),
-                    height: ScreenUtil().setHeight(160),
-                    fit: BoxFit.cover,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => StackExample(),
+                      ),
+                    );
+                  },
+                  child: ClipOval(
+                    clipper: ProfileClipper(),
+                    child: Image.asset(
+                      'images/ashish.jpeg',
+                      width: ScreenUtil().setWidth(160),
+                      height: ScreenUtil().setHeight(160),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ],
@@ -249,6 +269,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+
+  void drawerOpen(BuildContext context) {
+    Scaffold.of(context).openDrawer();
   }
 
   Widget selectRouteScreen() {

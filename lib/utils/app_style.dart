@@ -21,11 +21,10 @@ const salonCardTextStyle = TextStyle(
 );
 
 const electronicsCardStyle = TextStyle(
-  fontFamily: 'Montserrat',
-  fontWeight: FontWeight.w500,
-  fontSize: 22.0,
-  color: Colors.black54
-);
+    fontFamily: 'Montserrat',
+    fontWeight: FontWeight.w500,
+    fontSize: 22.0,
+    color: Colors.black54);
 
 const selectedTabStyle = TextStyle(
   fontFamily: 'Montserrat',
@@ -44,4 +43,18 @@ const appBarTextStyle = TextStyle(
   fontWeight: FontWeight.w500,
   fontSize: 20.0,
   color: Colors.black87,
+);
+
+const navItemTextStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w400,
+  fontSize: 17.0,
+  color: Colors.black87,
+);
+
+const profileCardTextStyle = TextStyle(
+  fontFamily: 'Montserrat',
+  fontWeight: FontWeight.w600,
+  fontSize: 18.0,
+  color: Colors.black45,
 );
