@@ -3,7 +3,9 @@ import 'package:feminae/screens/decorations/decoration_screen.dart';
 import 'package:feminae/screens/electronics/electronics_screen.dart';
 import 'package:feminae/screens/salon/salon_screen.dart';
 import 'package:feminae/screens/stiching/stiching_screen.dart';
+import 'package:feminae/services/location.dart';
 import 'package:feminae/stack_example.dart';
+import 'package:feminae/top_bar.dart';
 import 'package:feminae/utils/profile_clipper.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ import 'package:feminae/widgets/category_card.dart';
 import 'package:feminae/utils/data.dart';
 import 'dart:math';
 import 'package:feminae/utils/my_flutter_app_icons.dart';
+import 'package:geolocator/geolocator.dart';
 
 List<List<Color>> gradientColors = [
   [Color(0xFF3a7bd5), Color(0xFF3a6073)],
@@ -123,6 +126,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     colorPosition = 0;
     cardIcon = 'images/scissors.svg';
     categoryName = 'Salon';
+    getLocation();
+  }
+
+  void getLocation() async {
+    Location location = Location();
+    await location.getCurrentLocation();
+    print(location.latitude);
+    print(location.latitude);
   }
 
   @override
@@ -142,54 +153,56 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: SizeConfig.blockSizeHorizontal*70,
+            height: SizeConfig.blockSizeHorizontal * 60,
             width: SizeConfig.screenWidth,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20.0)),
-              image: DecorationImage(image: AssetImage('images/main_png.png'), fit: BoxFit.fill),
+              borderRadius:
+                  BorderRadius.only(bottomRight: Radius.circular(20.0)),
+              image: DecorationImage(
+                  image: AssetImage('images/top_bar.png'), fit: BoxFit.fill),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: ScreenUtil().setHeight(40),
-              left: ScreenUtil().setWidth(40),
-              right: ScreenUtil().setWidth(40),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(MyFlutterApp.short_text),
-                  onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => StackExample()));
-                    Scaffold.of(context).openDrawer();
-                  },
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StackExample(),
-                      ),
-                    );
-                  },
-                  child: ClipOval(
-                    clipper: ProfileClipper(),
-                    child: Image.asset(
-                      'images/ashish.jpeg',
-                      width: ScreenUtil().setWidth(160),
-                      height: ScreenUtil().setHeight(160),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //     top: ScreenUtil().setHeight(40),
+          //     left: ScreenUtil().setWidth(40),
+          //     right: ScreenUtil().setWidth(40),
+          //   ),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: <Widget>[
+          //       IconButton(
+          //         icon: Icon(MyFlutterApp.short_text),
+          //         onPressed: () {
+          //           // Navigator.push(
+          //           //     context,
+          //           //     MaterialPageRoute(
+          //           //         builder: (context) => StackExample()));
+          //           Scaffold.of(context).openDrawer();
+          //         },
+          //       ),
+          //       GestureDetector(
+          //         onTap: () {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               builder: (context) => StackExample(),
+          //             ),
+          //           );
+          //         },
+          //         child: ClipOval(
+          //           clipper: ProfileClipper(),
+          //           child: Image.asset(
+          //             'images/ashish.jpeg',
+          //             width: ScreenUtil().setWidth(160),
+          //             height: ScreenUtil().setHeight(160),
+          //             fit: BoxFit.cover,
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Padding(
             padding: EdgeInsets.only(
               top: ScreenUtil().setHeight(60),

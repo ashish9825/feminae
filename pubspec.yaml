@@ -20,6 +20,7 @@ dependencies:
   progress_dialog: ^1.2.0
   flutter_widgets: ^0.1.9
   carousel_slider: ^1.4.1
+  geolocator: ^5.2.1
   
 
 dev_dependencies:

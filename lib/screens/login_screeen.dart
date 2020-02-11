@@ -3,6 +3,7 @@ import 'package:feminae/dashboard.dart';
 import 'package:feminae/screens/signup_screen.dart';
 import 'package:feminae/widgets/auth_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:feminae/widgets/auth_button.dart';
@@ -17,11 +18,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  
   String email;
   String password;
   final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    ));
     progressDialog = ProgressDialog(context, type: ProgressDialogType.Normal);
     progressDialog.style(
       message: 'Logging you in..',
