@@ -116,7 +116,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(30),
                           ),
-                          AuthText("Password", ScreenUtil.getInstance().setSp(26)),
+                          AuthText(
+                              "Password", ScreenUtil.getInstance().setSp(26)),
                           TextField(
                             obscureText: true,
                             decoration: kPasswordInputDecoration,
@@ -127,7 +128,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(30),
                           ),
-                          AuthText("Confirm Password", ScreenUtil.getInstance().setSp(26)),
+                          AuthText("Confirm Password",
+                              ScreenUtil.getInstance().setSp(26)),
                           TextField(
                             obscureText: true,
                             decoration: kConfirmPasswordInoutDecoration,
@@ -184,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   print(e);
                                 }
                               },
-                              child: AuthButton("Sign Up"),
+                              child: AuthButton(0, 'Sign Up'),
                             ),
                           ),
                         ),

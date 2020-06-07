@@ -1,12 +1,12 @@
+import 'package:feminae/decorations/circletab_indicator.dart';
 import 'package:feminae/screens/cleaning/cleaning_screen.dart';
 import 'package:feminae/screens/decorations/decoration_screen.dart';
 import 'package:feminae/screens/electronics/electronics_screen.dart';
 import 'package:feminae/screens/salon/salon_screen.dart';
 import 'package:feminae/screens/stiching/stiching_screen.dart';
+import 'package:feminae/widgets/carausel_slider.dart';
+import 'package:feminae/widgets/top_bar.dart';
 import 'package:feminae/services/location.dart';
-import 'package:feminae/stack_example.dart';
-import 'package:feminae/top_bar.dart';
-import 'package:feminae/utils/profile_clipper.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,8 +14,6 @@ import 'package:feminae/utils/app_style.dart';
 import 'package:feminae/widgets/category_card.dart';
 import 'package:feminae/utils/data.dart';
 import 'dart:math';
-import 'package:feminae/utils/my_flutter_app_icons.dart';
-import 'package:geolocator/geolocator.dart';
 
 List<List<Color>> gradientColors = [
   [Color(0xFF3a7bd5), Color(0xFF3a6073)],
@@ -29,6 +27,7 @@ List<List<Color>> gradientColors = [
 int colorPosition;
 String cardIcon;
 String categoryName;
+String currentLocation;
 
 class HomePage extends StatefulWidget {
   static String id = 'home_screen';
@@ -43,6 +42,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int _currentIndex = 0;
   bool _isSelected;
   var currentPage = images.length - 1.0;
+  Location location = Location();
 
   List<String> categories = [
     'Salon',
@@ -106,14 +106,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               }
             });
           },
-          child: Text(
-            category,
-            style: TextStyle(
-              color: _isSelected ? Colors.black : Colors.grey,
-              fontSize: _isSelected ? 22 : 16,
-              fontFamily: "Poppins-Medium",
-              fontWeight: FontWeight.w600,
-            ),
+          child: Column(
+            children: <Widget>[
+              Text(
+                category,
+                style: TextStyle(
+                  color: _isSelected ? Color(0xFF2f0d72) : Colors.grey,
+                  fontSize: _isSelected ? 15 : 14,
+                  fontFamily: "Poppins-Medium",
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              SizedBox(
+                height: SizeConfig.blockSizeHorizontal * 2,
+              ),
+              _isSelected
+                  ? Container(
+                      decoration: CircleTabIndicator(
+                          color: Color(0xFF260b5d), radius: 3.0),
+                    )
+                  : Container(),
+            ],
           ),
         ),
       );
@@ -130,10 +143,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   void getLocation() async {
-    Location location = Location();
+    currentLocation = await location.getLastKnownLocation();  
+
     await location.getCurrentLocation();
     print(location.latitude);
     print(location.latitude);
+    await location.getAddressFromLatLng(location.latitude, location.longitude);
+    print(location.currentAddress);
+    setState(() {
+      currentLocation = location.currentAddress;
+    });
   }
 
   @override
@@ -152,102 +171,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            height: SizeConfig.blockSizeHorizontal * 60,
-            width: SizeConfig.screenWidth,
-            decoration: BoxDecoration(
-              borderRadius:
-                  BorderRadius.only(bottomRight: Radius.circular(20.0)),
-              image: DecorationImage(
-                  image: AssetImage('images/top_bar.png'), fit: BoxFit.fill),
-            ),
+          Wrap(
+            children: <Widget>[
+              TopBar(currentAddress: currentLocation ?? 'Location'),
+            ],
           ),
-          // Padding(
-          //   padding: EdgeInsets.only(
-          //     top: ScreenUtil().setHeight(40),
-          //     left: ScreenUtil().setWidth(40),
-          //     right: ScreenUtil().setWidth(40),
-          //   ),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: <Widget>[
-          //       IconButton(
-          //         icon: Icon(MyFlutterApp.short_text),
-          //         onPressed: () {
-          //           // Navigator.push(
-          //           //     context,
-          //           //     MaterialPageRoute(
-          //           //         builder: (context) => StackExample()));
-          //           Scaffold.of(context).openDrawer();
-          //         },
-          //       ),
-          //       GestureDetector(
-          //         onTap: () {
-          //           Navigator.push(
-          //             context,
-          //             MaterialPageRoute(
-          //               builder: (context) => StackExample(),
-          //             ),
-          //           );
-          //         },
-          //         child: ClipOval(
-          //           clipper: ProfileClipper(),
-          //           child: Image.asset(
-          //             'images/ashish.jpeg',
-          //             width: ScreenUtil().setWidth(160),
-          //             height: ScreenUtil().setHeight(160),
-          //             fit: BoxFit.cover,
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           Padding(
             padding: EdgeInsets.only(
               top: ScreenUtil().setHeight(60),
               left: ScreenUtil().setWidth(70),
             ),
-            child: Text('Discover', style: headingStyle),
-          ),
-          Stack(
-            children: <Widget>[
-              CardScrollWidget(currentPage),
-              Positioned.fill(
-                child: PageView.builder(
-                  itemCount: images.length,
-                  controller: controller,
-                  reverse: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (c, a1, a2) =>
-                                  selectRouteInStack(index),
-                              transitionsBuilder: (c, anim, a2, child) =>
-                                  FadeTransition(
-                                opacity: anim,
-                                child: child,
-                              ),
-                              transitionDuration: Duration(milliseconds: 100),
-                            ));
-                      },
-                      child: Container(),
-                    );
-                  },
-                ),
-              )
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: ScreenUtil().setHeight(20),
-              left: ScreenUtil().setWidth(70),
-              bottom: ScreenUtil().setHeight(30),
-            ),
-            child: Text('Explore', style: headingStyle),
+            child: Container(),
           ),
           SingleChildScrollView(
             padding: EdgeInsets.only(right: 20.0),
@@ -276,6 +210,53 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ));
             },
           ),
+          Divider(
+            color: Colors.black12,
+            thickness: SizeConfig.safeBlockHorizontal*2,
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 20.0),
+            child: Carousel(),
+          ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //     top: ScreenUtil().setHeight(50),
+          //     left: ScreenUtil().setWidth(70),
+          //   ),
+          //   child: Text('Discover',
+          //       style: TextStyle(fontFamily: 'Poppins-Medium', fontSize: 20.0, color: Color(0xFF260b5d))),
+          // ),
+          // Stack(
+          //   children: <Widget>[
+          //     CardScrollWidget(currentPage),
+          //     Positioned.fill(
+          //       child: PageView.builder(
+          //         itemCount: images.length,
+          //         controller: controller,
+          //         reverse: true,
+          //         itemBuilder: (context, index) {
+          //           return InkWell(
+          //             onTap: () {
+          //               Navigator.push(
+          //                   context,
+          //                   PageRouteBuilder(
+          //                     pageBuilder: (c, a1, a2) =>
+          //                         selectRouteInStack(index),
+          //                     transitionsBuilder: (c, anim, a2, child) =>
+          //                         FadeTransition(
+          //                       opacity: anim,
+          //                       child: child,
+          //                     ),
+          //                     transitionDuration: Duration(milliseconds: 100),
+          //                   ));
+          //             },
+          //             child: Container(),
+          //           );
+          //         },
+          //       ),
+          //     )
+          //   ],
+          // ),
           SizedBox(
             height: ScreenUtil().setHeight(20),
           ),
@@ -322,6 +303,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 class CardScrollWidget extends StatelessWidget {
   final currentPage;
   final padding = 20.0;
+  final padding1 = 10.0;
   final verticalInset = 20.0;
 
   CardScrollWidget(this.currentPage);

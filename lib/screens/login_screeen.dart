@@ -1,3 +1,4 @@
+import 'package:feminae/bloc/login_bloc.dart';
 import 'package:feminae/constants.dart';
 import 'package:feminae/dashboard.dart';
 import 'package:feminae/screens/signup_screen.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:feminae/widgets/auth_button.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 ProgressDialog progressDialog;
@@ -18,10 +20,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  
+  int _state = 0;
   String email;
   String password;
   final _auth = FirebaseAuth.instance;
+
+  LoginBLoc loginBLoc = LoginBLoc();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -197,7 +201,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             color: Colors.transparent,
                             child: InkWell(
                               onTap: () async {
-                                progressDialog.show();
+                                setState(() {
+                                  _state = 1;
+                                });
+                                //progressDialog.show();
                                 try {
                                   final currentUser =
                                       await _auth.signInWithEmailAndPassword(
@@ -207,17 +214,17 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                   if (currentUser != null) {
                                     print('Sign in Successful !');
-                                    if (progressDialog.isShowing())
-                                      progressDialog.hide();
-                                    Navigator.pushReplacementNamed(
-                                        context, Dashboard.id);
+                                    if (_state == 1)
+                                      //progressDialog.hide();
+                                      Navigator.pushReplacementNamed(
+                                          context, Dashboard.id);
                                   }
                                 } catch (e) {
                                   print(e);
                                 }
                               },
                               child: Center(
-                                child: AuthButton("Sign In"),
+                                child: AuthButton(_state, 'Sign In'),
                               ),
                             ),
                           ),

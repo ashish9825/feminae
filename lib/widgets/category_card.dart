@@ -35,7 +35,7 @@ class _CategoryCardState extends State<CategoryCard> {
       child: SizedBox(
         height: widget.sizedBoxHeight,
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.only(left: 20.0, top: 20.0, right: 20.0, bottom: 10.0),
           child: Stack(
             children: <Widget>[
               Align(

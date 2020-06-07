@@ -27,14 +27,14 @@ const electronicsCardStyle = TextStyle(
     color: Colors.black54);
 
 const selectedTabStyle = TextStyle(
-  fontFamily: 'Montserrat',
-  fontWeight: FontWeight.w700,
+  fontFamily: 'Poppins-Medium',
+  fontWeight: FontWeight.w400,
   fontSize: 17.0,
 );
 
 const unSelectedTabStyle = TextStyle(
-  fontFamily: 'Montserrat',
-  fontWeight: FontWeight.w500,
+  fontFamily: 'Poppins-Medium',
+  fontWeight: FontWeight.w300,
   fontSize: 17.0,
 );
 

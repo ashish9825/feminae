@@ -4,9 +4,13 @@ import 'package:feminae/utils/app_style.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
+import 'package:feminae/bloc/facility_bloc.dart';
+import 'package:feminae/model/facility_response.dart';
+import 'package:feminae/widgets/error_widget.dart';
+import 'package:feminae/widgets/loading_widget.dart';
 
 class SalonScreen extends StatefulWidget {
   static String id = 'salon_screen';
@@ -23,6 +27,7 @@ class _SalonScreenState extends State<SalonScreen>
   @override
   void initState() {
     super.initState();
+    bloc.getFacilities();
   }
 
   @override
@@ -33,35 +38,7 @@ class _SalonScreenState extends State<SalonScreen>
       child: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                backgroundColor: Colors.white,
-                expandedHeight: SizeConfig.blockSizeVertical * 40,
-                floating: false,
-                pinned: true,
-                leading: _showAppBar ? null : Container(),
-                title: animatedTitle(),
-                flexibleSpace: FlexibleSpaceBar(
-                  background: topOfTheScreen(),
-                ),
-              ),
-              SliverGrid.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 0,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 2.0,
-                  children: buildSalonGrid()),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) => SizedBox(
-                    height: 20.0,
-                  ),
-                  childCount: 1,
-                ),
-              ),
-            ],
-          ),
+          child: showSalonFacilities(),
         ),
       ),
     );
@@ -134,81 +111,111 @@ class _SalonScreenState extends State<SalonScreen>
     );
   }
 
-  List<Widget> buildSalonGrid() {
-    return salonFacilities
-        .map((item) => InkWell(
-              onTap: () {
-                int index;
-                if (item[1] == 'Waxing')
-                  index = 0;
-                else if (item[1] == 'Facial Cleanup')
-                  index = 1;
-                else if (item[1] == 'Bleach & Detan')
-                  index = 2;
-                else if (item[1] == 'Pedicure')
-                  index = 3;
-                else if (item[1] == 'Manicure')
-                  index = 4;
-                else if (item[1] == 'Hair Care')
-                  index = 5;
-                else if (item[1] == 'Threading') index = 6;
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (c, a1, a2) => SalonDetail(
-                      tabIndex: index,
-                    ),
-                    transitionsBuilder: (c, anim, a2, child) => FadeTransition(
-                      opacity: anim,
-                      child: child,
-                    ),
-                    transitionDuration: Duration(milliseconds: 100),
+  Widget showSalonFacilities() {
+    return StreamBuilder<FacilityResponse>(
+      stream: bloc.subject.stream,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data.error != null && snapshot.data.error.length > 0) {
+            return FeminaeError(snapshot.data.error);
+          }
+          return salonList(snapshot.data);
+        } else if (snapshot.hasError) {
+          return FeminaeError(snapshot.error);
+        } else {
+          return FeminaeLoading();
+        }
+      },
+    );
+  }
+
+  salonList(FacilityResponse data) {
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          backgroundColor: Colors.white,
+          expandedHeight: SizeConfig.blockSizeVertical * 40,
+          floating: false,
+          pinned: true,
+          leading: _showAppBar ? null : Container(),
+          title: animatedTitle(),
+          flexibleSpace: FlexibleSpaceBar(
+            background: topOfTheScreen(),
+          ),
+        ),
+        SliverGrid.count(
+            crossAxisCount: 2,
+            crossAxisSpacing: 0,
+            mainAxisSpacing: 10,
+            childAspectRatio: 2.0,
+            children: List.generate(
+              data.facilities.length,
+              (index) => InkWell(
+                onTap: () {
+                  print(data.facilities[index].facility);
+                  bloc.movetoTab(
+                      data.facilities[index].facilityId - 1, context);
+                },
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 10.0),
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xFFD2EBE5),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black12,
+                                offset: Offset(0, 8),
+                                blurRadius: 8),
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      Transform.translate(
+                        offset: Offset(0, 5),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: SvgPicture.network(
+                                data.facilities[index].facilityImage,
+                                width: SizeConfig.blockSizeHorizontal * 10,
+                                height: SizeConfig.blockSizeHorizontal * 10,
+                                placeholderBuilder: (context) => Container(
+                                  child: Icon(
+                                    AntDesign.jpgfile1,
+                                    size: SizeConfig.blockSizeHorizontal * 7,
+                                    color: Color(0xFFFF7852),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                data.facilities[index].facility,
+                                style: salonCardTextStyle,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                );
-              },
-              child: Container(
-                margin: const EdgeInsets.symmetric(
-                    horizontal: 15.0, vertical: 10.0),
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Color(0xFFD2EBE5),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black12,
-                              offset: Offset(0, 8),
-                              blurRadius: 8),
-                        ],
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    Transform.translate(
-                      offset: Offset(0, 5),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.all(20.0),
-                            child: SvgPicture.asset(
-                              item[0],
-                              width: SizeConfig.blockSizeHorizontal * 10,
-                              height: SizeConfig.blockSizeHorizontal * 10,
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              item[1],
-                              style: salonCardTextStyle,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
                 ),
               ),
-            ))
-        .toList();
+            )),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (context, index) => SizedBox(
+              height: 20.0,
+            ),
+            childCount: 1,
+          ),
+        ),
+      ],
+    );
   }
 }

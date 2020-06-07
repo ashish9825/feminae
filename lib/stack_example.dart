@@ -178,28 +178,34 @@ class _StackExampleState extends State<StackExample> {
 
   Widget _carouselSlider() {
     return CarouselSlider(
-      height: 200.0,
+      height: 300.0,
       initialPage: 0,
       enlargeCenterPage: true,
+      autoPlay: true,
       reverse: false,
-      enableInfiniteScroll: false,
+      enableInfiniteScroll: true,
       onPageChanged: (index) {
         setState(() {
           currentPageValue = index;
         });
       },
-      items: images.map((imageUrl) {
+      items: images1.map((imageUrl) {
         return Builder(
           builder: (BuildContext context) {
             return Container(
               width: SizeConfig.screenWidth,
               margin: EdgeInsets.symmetric(horizontal: 10.0),
-              decoration: BoxDecoration(
-                color: Colors.green,
-              ),
-              child: Image.asset(
-                imageUrl,
-                fit: BoxFit.fill,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black12
+                  ),
+                  child: Image.asset(
+                    imageUrl,
+                    fit: BoxFit.fill,
+                  ),
+                ),
               ),
             );
           },

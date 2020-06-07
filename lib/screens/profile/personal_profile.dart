@@ -73,13 +73,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Container(
-                                  color: Color(0xFFf9ecf6),
+                                  color: Color(0xFFEFE8FA),
                                   width: SizeConfig.blockSizeHorizontal * 10,
                                   height: SizeConfig.blockSizeHorizontal * 10,
                                   child: Icon(
                                     AntDesign.tagso,
                                     size: SizeConfig.blockSizeHorizontal * 5,
-                                    color: Color(0xFF9b3181),
+                                    color: Color(0xFF661FCE),
                                   ),
                                 ),
                               ),
@@ -90,14 +90,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     style: TextStyle(
                                         fontFamily: 'Poppins-Medium',
                                         fontSize: 16.0,
-                                        color: Color(0xFF6d225a)),
+                                        color: Color(0xFF3F2770)),
                                   ))
                             ],
                           ),
                           Icon(
                             AntDesign.right,
                             size: SizeConfig.blockSizeHorizontal * 5,
-                            color: Color(0xFF9b3181),
+                            color: Color(0xFF633898),
                           ),
                         ],
                       ),
@@ -112,13 +112,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Container(
-                                  color: Color(0xFFf9ecf6),
+                                  color: Color(0xFFEFE8FA),
                                   width: SizeConfig.blockSizeHorizontal * 10,
                                   height: SizeConfig.blockSizeHorizontal * 10,
                                   child: Icon(
                                     AntDesign.smileo,
                                     size: SizeConfig.blockSizeHorizontal * 5,
-                                    color: Color(0xFF9b3181),
+                                    color: Color(0xFF661FCE),
                                   ),
                                 ),
                               ),
@@ -129,14 +129,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     style: TextStyle(
                                         fontFamily: 'Poppins-Medium',
                                         fontSize: 16.0,
-                                        color: Color(0xFF624E8A)),
+                                        color: Color(0xFF3F2770)),
                                   ))
                             ],
                           ),
                           Icon(
                             AntDesign.right,
                             size: SizeConfig.blockSizeHorizontal * 5,
-                            color: Color(0xFF9b3181),
+                            color: Color(0xFF633898),
                           ),
                         ],
                       ),
@@ -151,13 +151,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Container(
-                                  color: Color(0xFFf9ecf6),
+                                  color: Color(0xFFEFE8FA),
                                   width: SizeConfig.blockSizeHorizontal * 10,
                                   height: SizeConfig.blockSizeHorizontal * 10,
                                   child: Icon(
                                     AntDesign.sharealt,
                                     size: SizeConfig.blockSizeHorizontal * 5,
-                                    color: Color(0xFF9b3181),
+                                    color: Color(0xFF661FCE),
                                   ),
                                 ),
                               ),
@@ -168,14 +168,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     style: TextStyle(
                                         fontFamily: 'Poppins-Medium',
                                         fontSize: 16.0,
-                                        color: Color(0xFF6d225a)),
+                                        color: Color(0xFF3F2770)),
                                   ))
                             ],
                           ),
                           Icon(
                             AntDesign.right,
                             size: SizeConfig.blockSizeHorizontal * 5,
-                            color: Color(0xFF9b3181),
+                            color: Color(0xFF633898),
                           ),
                         ],
                       ),
@@ -192,13 +192,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Container(
-                                  color: Color(0xFFf9ecf6),
+                                  color: Color(0xFFEFE8FA),
                                   width: SizeConfig.blockSizeHorizontal * 10,
                                   height: SizeConfig.blockSizeHorizontal * 10,
                                   child: Icon(
                                     AntDesign.profile,
                                     size: SizeConfig.blockSizeHorizontal * 5,
-                                    color: Color(0xFF9b3181),
+                                    color: Color(0xFF661FCE),
                                   ),
                                 ),
                               ),
@@ -209,14 +209,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     style: TextStyle(
                                         fontFamily: 'Poppins-Medium',
                                         fontSize: 16.0,
-                                        color: Color(0xFF6d225a)),
+                                        color: Color(0xFF3F2770)),
                                   ))
                             ],
                           ),
                           Icon(
                             AntDesign.right,
                             size: SizeConfig.blockSizeHorizontal * 5,
-                            color: Color(0xFF9b3181),
+                            color: Color(0xFF633898),
                           ),
                         ],
                       ),
@@ -231,13 +231,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10.0),
                                 child: Container(
-                                  color: Color(0xFFf9ecf6),
+                                  color: Color(0xFFEFE8FA),
                                   width: SizeConfig.blockSizeHorizontal * 10,
                                   height: SizeConfig.blockSizeHorizontal * 10,
                                   child: Icon(
                                     AntDesign.staro,
                                     size: SizeConfig.blockSizeHorizontal * 5,
-                                    color: Color(0xFF9b3181),
+                                    color: Color(0xFF661FCE),
                                   ),
                                 ),
                               ),
@@ -248,14 +248,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     style: TextStyle(
                                         fontFamily: 'Poppins-Medium',
                                         fontSize: 16.0,
-                                        color: Color(0xFF6d225a)),
+                                        color: Color(0xFF3F2770)),
                                   ))
                             ],
                           ),
                           Icon(
                             AntDesign.right,
                             size: SizeConfig.blockSizeHorizontal * 5,
-                            color: Color(0xFF9b3181),
+                            color: Color(0xFF633898),
                           ),
                         ],
                       ),

@@ -3,7 +3,10 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 const kEmailInputDecoration = InputDecoration(
   hintText: "Email",
-  hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0),
+  hintStyle: TextStyle(
+    color: Colors.grey,
+    fontSize: 12.0,
+  ),
 );
 
 const kPasswordInputDecoration = InputDecoration(

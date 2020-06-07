@@ -5,6 +5,13 @@ List<String> images = [
   'images/home_decoration.jpg'
 ];
 
+List<String> images1 = [
+  'images/flowerist1.png',
+  'images/painters1.png',
+  'images/stiching1.png',
+  'images/decorators1.png',
+];
+
 List<String> title = [
   'Flowerist',
   'Painters',

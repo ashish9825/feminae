@@ -1,3 +1,4 @@
+import 'package:feminae/bloc/auth_bloc.dart';
 import 'package:feminae/dashboard.dart';
 import 'package:feminae/screens/login_screeen.dart';
 import 'package:feminae/screens/salon/salon_screen.dart';
@@ -14,6 +15,7 @@ class FeminaeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    authBloc.restoreSession();
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,
@@ -23,14 +25,28 @@ class FeminaeApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: primaryColor,
       ),
-      initialRoute: LoginScreen.id,
-      routes: {
-        LoginScreen.id: (context) => LoginScreen(),
-        SignUpScreen.id: (context) => SignUpScreen(),
-        Dashboard.id: (context) => Dashboard(),
-        StackExample.id: (context) => StackExample(),
-        SalonScreen.id: (context) => SalonScreen(),
-        SalonDetail.id: (context) => SalonDetail(),
+      // initialRoute: LoginScreen.id,
+      // routes: {
+      //   LoginScreen.id: (context) => LoginScreen(),
+      //   SignUpScreen.id: (context) => SignUpScreen(),
+      //   Dashboard.id: (context) => Dashboard(),
+      //   StackExample.id: (context) => StackExample(),
+      //   SalonScreen.id: (context) => SalonScreen(),
+      //   SalonDetail.id: (context) => SalonDetail(),
+      // },
+      home: initialScreen(),
+    );
+  }
+
+  Widget initialScreen() {
+    return StreamBuilder<String>(
+      stream: authBloc.isSessionValid,
+      builder: (context, snapshot) {
+        if (snapshot.hasData && snapshot.data != 'None') {
+          return Dashboard();
+        } else {
+          return LoginScreen();
+        }
       },
     );
   }
