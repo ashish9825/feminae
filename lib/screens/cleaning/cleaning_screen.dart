@@ -8,6 +8,9 @@ import 'package:flutter_widgets/flutter_widgets.dart';
 
 class CleaningScreen extends StatefulWidget {
   static String id = 'cleaning_screen';
+
+  final String token;
+  CleaningScreen(this.token);
   @override
   _CleaningScreenState createState() => _CleaningScreenState();
 }
@@ -147,6 +150,7 @@ class _CleaningScreenState extends State<CleaningScreen> with SingleTickerProvid
                   PageRouteBuilder(
                     pageBuilder: (c, a1, a2) => CleaningDetail(
                       tabIndex: index,
+                      token: widget.token,
                     ),
                     transitionsBuilder: (c, anim, a2, child) => FadeTransition(
                       opacity: anim,

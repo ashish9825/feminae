@@ -2,9 +2,11 @@ import 'package:feminae/utils/profile_clipper.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:feminae/constants.dart';
 
 class ProfileScreen extends StatefulWidget {
+  final String token;
+  ProfileScreen(this.token);
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -31,7 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: <Widget>[
               SizedBox(
                 height: 10.0,
-              ),    
+              ),
               ClipOval(
                 clipper: ProfileClipper(),
                 child: Image.asset(

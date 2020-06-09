@@ -25,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String password;
   final _auth = FirebaseAuth.instance;
 
-  LoginBLoc loginBLoc = LoginBLoc();
+  LoginBLoc loginBloc = LoginBLoc();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -134,24 +134,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: ScreenUtil.getInstance().setHeight(30),
                           ),
                           AuthText("Email", ScreenUtil.getInstance().setSp(26)),
-                          TextField(
-                            decoration: kEmailInputDecoration,
-                            onChanged: (value) {
-                              email = value;
-                            },
-                          ),
+                          emailField(loginBloc),
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(30),
                           ),
                           AuthText(
                               "Password", ScreenUtil.getInstance().setSp(26)),
-                          TextField(
-                            obscureText: true,
-                            decoration: kPasswordInputDecoration,
-                            onChanged: (value) {
-                              password = value;
-                            },
-                          ),
+                          passwordField(loginBloc),
                           SizedBox(
                             height: ScreenUtil.getInstance().setHeight(35),
                           ),
@@ -199,34 +188,35 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           child: Material(
                             color: Colors.transparent,
-                            child: InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  _state = 1;
-                                });
-                                //progressDialog.show();
-                                try {
-                                  final currentUser =
-                                      await _auth.signInWithEmailAndPassword(
-                                    email: email,
-                                    password: password,
-                                  );
+                            // child: InkWell(
+                            //   onTap: () async {
+                            //     setState(() {
+                            //       _state = 1;
+                            //     });
+                            //     //progressDialog.show();
+                            //     try {
+                            //       final currentUser =
+                            //           await _auth.signInWithEmailAndPassword(
+                            //         email: email,
+                            //         password: password,
+                            //       );
 
-                                  if (currentUser != null) {
-                                    print('Sign in Successful !');
-                                    if (_state == 1)
-                                      //progressDialog.hide();
-                                      Navigator.pushReplacementNamed(
-                                          context, Dashboard.id);
-                                  }
-                                } catch (e) {
-                                  print(e);
-                                }
-                              },
-                              child: Center(
-                                child: AuthButton(_state, 'Sign In'),
-                              ),
-                            ),
+                            //       if (currentUser != null) {
+                            //         print('Sign in Successful !');
+                            //         if (_state == 1)
+                            //           //progressDialog.hide();
+                            //           Navigator.pushReplacementNamed(
+                            //               context, Dashboard.id);
+                            //       }
+                            //     } catch (e) {
+                            //       print(e);
+                            //     }
+                            //   },
+                            //   child: Center(
+                            //     child: AuthButton(_state, 'Sign In'),
+                            //   ),
+                            // ),
+                            child: loginButton(loginBloc),
                           ),
                         ),
                       ),
@@ -250,7 +240,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, SignUpScreen.id);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignUpScreen()));
                           },
                           child: Text(
                             "Sign Up",
@@ -270,4 +263,59 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  Widget emailField(LoginBLoc bloc) => StreamBuilder<String>(
+        stream: bloc.email,
+        builder: (context, snapshot) {
+          return TextField(
+            onChanged: bloc.changeEmail,
+            onSubmitted: (value) {
+              email = value;
+            },
+            decoration:
+                kEmailInputDecoration.copyWith(errorText: snapshot.error),
+          );
+        },
+      );
+
+  Widget passwordField(LoginBLoc bloc) => StreamBuilder<String>(
+        stream: bloc.password,
+        builder: (context, snapshot) {
+          return TextField(
+            onChanged: bloc.changePassword,
+            onSubmitted: (value) {
+              password = value;
+            },
+            obscureText: true,
+            decoration:
+                kPasswordInputDecoration.copyWith(errorText: snapshot.error),
+          );
+        },
+      );
+
+  Widget loginButton(LoginBLoc bloc) => StreamBuilder<bool>(
+        stream: bloc.submitValid,
+        builder: (context, snapshot) {
+          return InkWell(
+            onTap: (!snapshot.hasData)
+                ? null
+                : () async {
+                    setState(() {
+                      _state = 1;
+                    });
+                    bloc.setScaffold.add(Scaffold.of(context));
+                    await bloc.submit(context);
+                    print(bloc.getStatusProgress);
+                    if (bloc.getStatusProgress == true) {
+                      setState(() {
+                        _state = 0;
+                      });
+                    }
+                  },
+            child: Center(
+              child: AuthButton(_state, 'Sign In'),
+            ),
+          );
+        },
+      );
 }

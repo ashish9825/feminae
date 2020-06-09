@@ -1,12 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:feminae/screens/decorations/decoration_screen.dart';
 import 'package:feminae/screens/salon/salon_screen.dart';
-import 'package:feminae/screens/stiching/stiching_screen.dart';
+import 'package:feminae/screens/stitching/stitching_screen.dart';
 import 'package:feminae/utils/data.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
 
 class Carousel extends StatefulWidget {
+  final String token;
+  Carousel(this.token);
   @override
   _CarouselState createState() => _CarouselState();
 }
@@ -41,17 +43,17 @@ class _CarouselState extends State<Carousel> {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (c, a1, a2) =>
-                                  selectRouteInStack(currentPageValue),
-                              transitionsBuilder: (c, anim, a2, child) =>
-                                  FadeTransition(
-                                opacity: anim,
-                                child: child,
-                              ),
-                              transitionDuration: Duration(milliseconds: 100),
-                            ));
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (c, a1, a2) =>
+                            selectRouteInStack(currentPageValue),
+                        transitionsBuilder: (c, anim, a2, child) =>
+                            FadeTransition(
+                          opacity: anim,
+                          child: child,
+                        ),
+                        transitionDuration: Duration(milliseconds: 100),
+                      ));
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10.0),
@@ -74,17 +76,15 @@ class _CarouselState extends State<Carousel> {
   Widget selectRouteInStack(int pageIndex) {
     switch (pageIndex) {
       case 0:
-        return SalonScreen();
+        return SalonScreen(widget.token);
       case 1:
-        return SalonScreen();
+        return SalonScreen(widget.token);
       case 2:
-        return StichingScreen();
+        return StitchingScreen(widget.token);
       case 3:
-        return DecorationScreen();
+        return DecorationScreen(widget.token);
       default:
         return Container();
     }
   }
 }
-
-

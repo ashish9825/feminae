@@ -25,10 +25,11 @@ class LoginResponse {
   LoginResponse.fromJson(Map<String, dynamic> json)
       : status = json['status'],
         login = Login.fromJson(json['data']),
-        error = "";
+        error = json['error'] != null ? json['error'] : '';
 
   LoginResponse.withError(String errorValue)
-      : status = '',
+      : status =
+            errorValue.substring(errorValue.length - 4, errorValue.length - 1),
         login = Login.fromJson(Map()),
         error = errorValue;
 }

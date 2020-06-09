@@ -9,7 +9,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 class DetailsPage extends StatefulWidget {
   final int tabPosition;
-  DetailsPage(this.tabPosition);
+  final String token;
+  DetailsPage(this.tabPosition, this.token);
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -19,7 +20,7 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   void initState() {
     super.initState();
-    servicesBloc.getFacilityServices(widget.tabPosition);
+    servicesBloc.getFacilityServices(widget.tabPosition, widget.token, 'salon');
   }
 
   @override
@@ -49,6 +50,7 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   Widget listTile(FacilityServices services) {
+    print(services.facilityPrice);
     return Padding(
       padding: const EdgeInsets.only(top: 15.0, left: 15.0, right: 15.0),
       child: Container(
@@ -67,24 +69,30 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    services.facilityName,
-                    style: TextStyle(
-                        fontFamily: 'Poppins-Medium',
-                        fontSize: 16.0,
-                        color: Color(0xFF3F2770)),
-                  ),
-                  Text(
-                    '₹${services.facilityPrice}',
-                    style: TextStyle(
-                        fontFamily: 'Poppins-Medium', color: Color(0xFF000000)),
-                  ),
-                ],
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.only(left: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        services.facilityName,
+                        maxLines: 2,
+                        style: TextStyle(
+                            fontFamily: 'Poppins-Medium',
+                            fontSize: 16.0,
+                            color: Color(0xFF3F2770)),
+                      ),
+                    ),
+                    Text(
+                      '₹${services.facilityPrice}',
+                      style: TextStyle(
+                          fontFamily: 'Poppins-Medium',
+                          color: Color(0xFF000000)),
+                    ),
+                  ],
+                ),
               ),
             )
           ],

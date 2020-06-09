@@ -10,6 +10,9 @@ import 'package:flutter_widgets/flutter_widgets.dart';
 class ElectronicsScreen extends StatefulWidget {
   static String id = 'electronics_screen';
 
+  final String token;
+  ElectronicsScreen(this.token);
+
   @override
   _ElectronicsScreenState createState() => _ElectronicsScreenState();
 }
@@ -124,9 +127,9 @@ class _ElectronicsScreenState extends State<ElectronicsScreen> {
               onTap: () {
                 Widget selectRoute;
                 if (item[1] == 'Electricians')
-                  selectRoute = ElectricianScreen();
+                  selectRoute = ElectricianScreen(widget.token);
                 else if (item[1] == 'Appliance Repair')
-                  selectRoute = ApplianceScreen();
+                  selectRoute = ApplianceScreen(widget.token);
 
                 Navigator.push(
                   context,

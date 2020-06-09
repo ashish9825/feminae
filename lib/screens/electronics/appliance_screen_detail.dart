@@ -6,8 +6,9 @@ class ApplianceDetail extends StatefulWidget {
   static String id = 'appliance_detail_screen';
 
   final tabIndex;
+  final String token;
 
-  const ApplianceDetail({Key key, this.tabIndex}) : super(key: key);
+  const ApplianceDetail({Key key, this.tabIndex, @required this.token}) : super(key: key);
 
   @override
   _ApplianceDetailState createState() => _ApplianceDetailState();

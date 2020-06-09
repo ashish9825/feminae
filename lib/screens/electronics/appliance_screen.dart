@@ -9,6 +9,9 @@ import 'package:flutter_widgets/flutter_widgets.dart';
 class ApplianceScreen extends StatefulWidget {
   static String id = 'appliance_screen';
 
+  final String token;
+  ApplianceScreen(this.token);
+
   @override
   _ApplianceScreenState createState() => _ApplianceScreenState();
 }
@@ -161,6 +164,7 @@ class _ApplianceScreenState extends State<ApplianceScreen> {
                   PageRouteBuilder(
                     pageBuilder: (c, a1, a2) => ApplianceDetail(
                       tabIndex: index,
+                      token: widget.token,
                     ),
                     transitionsBuilder: (c, anim, a2, child) => FadeTransition(
                       opacity: anim,

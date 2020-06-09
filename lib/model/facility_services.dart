@@ -1,24 +1,24 @@
 class FacilityServices {
-  final int facilityId;
+  final String facilityId;
   final String facilityName;
   final String facilityImageUrl;
-  final double facilityPrice;
+  final int facilityPrice;
 
   FacilityServices(this.facilityId, this.facilityName, this.facilityImageUrl,
       this.facilityPrice);
 
   FacilityServices.fromJson(Map<String, dynamic> json)
       : facilityId = json["facilityId"],
-        facilityName = json["facilityName"],
-        facilityImageUrl = json["facilityImageUrl"],
-        facilityPrice = json["facilityPrice"];
+        facilityName = json["facilityname"],
+        facilityImageUrl = json["facilityimageurl"],
+        facilityPrice = json["facilityprice"];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> facilityServices = Map<String, dynamic>();
-    facilityServices['facilityId'] = this.facilityId;
-    facilityServices['facilityName'] = this.facilityName;
-    facilityServices['facilityImageUrl'] = this.facilityImageUrl;
-    facilityServices['facilityPrice'] = this.facilityPrice;
+    facilityServices['facilityid'] = this.facilityId;
+    facilityServices['facilityname'] = this.facilityName;
+    facilityServices['facilityimageurl'] = this.facilityImageUrl;
+    facilityServices['facilityprice'] = this.facilityPrice;
     return facilityServices;
   }
 }

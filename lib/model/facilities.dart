@@ -1,5 +1,5 @@
 class Facility {
-  final int facilityId;
+  final String facilityId;
   final String facility;
   final String facilityImage;
 
@@ -8,13 +8,13 @@ class Facility {
   Facility.fromJson(Map<String, dynamic> json)
       : facilityId = json['id'],
         facility = json["facility"],
-        facilityImage = json["facilityImageUrl"];
+        facilityImage = json["facilityimageurl"];
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> facilities = Map<String, dynamic>();
     facilities['id'] = this.facilityId;
     facilities['facility'] = this.facility;
-    facilities['facilityImageUrl'] = this.facilityImage;
+    facilities['facilityimageurl'] = this.facilityImage;
     return facilities;
   }
 }

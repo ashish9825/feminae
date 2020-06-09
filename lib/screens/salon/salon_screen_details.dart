@@ -7,8 +7,10 @@ class SalonDetail extends StatefulWidget {
   static String id = 'salon_details_screen';
 
   final tabIndex;
+  final String token;
 
-  const SalonDetail({Key key, this.tabIndex}) : super(key: key);
+  const SalonDetail({Key key, this.tabIndex, @required this.token})
+      : super(key: key);
 
   @override
   _SalonDetailState createState() => _SalonDetailState();
@@ -67,13 +69,13 @@ class _SalonDetailState extends State<SalonDetail>
         },
         body: TabBarView(
           children: <Widget>[
-            DetailsPage(1),
-            DetailsPage(2),
-            DetailsPage(3),
-            DetailsPage(4),
-            DetailsPage(5),
-            DetailsPage(6),
-            DetailsPage(7),
+            DetailsPage(1, widget.token),
+            DetailsPage(2, widget.token),
+            DetailsPage(3, widget.token),
+            DetailsPage(4, widget.token),
+            DetailsPage(5, widget.token),
+            DetailsPage(6, widget.token),
+            DetailsPage(7, widget.token),
           ],
           controller: _tabController,
         ),

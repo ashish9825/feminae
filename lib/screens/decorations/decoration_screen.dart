@@ -6,6 +6,9 @@ import 'package:flutter_widgets/flutter_widgets.dart';
 
 class DecorationScreen extends StatefulWidget {
   static String id = 'decoration_screen';
+
+  final String token;
+  DecorationScreen(this.token);
   @override
   _DecorationScreenState createState() => _DecorationScreenState();
 }

@@ -3,14 +3,13 @@ import 'package:feminae/screens/cleaning/cleaning_screen.dart';
 import 'package:feminae/screens/decorations/decoration_screen.dart';
 import 'package:feminae/screens/electronics/electronics_screen.dart';
 import 'package:feminae/screens/salon/salon_screen.dart';
-import 'package:feminae/screens/stiching/stiching_screen.dart';
+import 'package:feminae/screens/stitching/stitching_screen.dart';
 import 'package:feminae/widgets/carausel_slider.dart';
 import 'package:feminae/widgets/top_bar.dart';
 import 'package:feminae/services/location.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:feminae/utils/app_style.dart';
 import 'package:feminae/widgets/category_card.dart';
 import 'package:feminae/utils/data.dart';
 import 'dart:math';
@@ -31,6 +30,9 @@ String currentLocation;
 
 class HomePage extends StatefulWidget {
   static String id = 'home_screen';
+
+  final String token;
+  HomePage(this.token);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -216,7 +218,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
           Padding(
             padding: EdgeInsets.only(top: 20.0),
-            child: Carousel(),
+            child: Carousel(widget.token),
           ),
           // Padding(
           //   padding: EdgeInsets.only(
@@ -272,13 +274,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget selectRouteScreen() {
     switch (categoryName) {
       case 'Salon':
-        return SalonScreen();
+        return SalonScreen(widget.token);
       case 'Cleaning':
-        return CleaningScreen();
+        return CleaningScreen(widget.token);
       case 'Stiching':
-        return StichingScreen();
+        return StitchingScreen(widget.token);
       case 'Electronics':
-        return ElectronicsScreen();
+        return ElectronicsScreen(widget.token);
       default:
         return null;
     }
@@ -287,13 +289,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget selectRouteInStack(int pageIndex) {
     switch (pageIndex) {
       case 0:
-        return SalonScreen();
+        return SalonScreen(widget.token);
       case 1:
-        return SalonScreen();
+        return SalonScreen(widget.token);
       case 2:
-        return StichingScreen();
+        return StitchingScreen(widget.token);
       case 3:
-        return DecorationScreen();
+        return DecorationScreen(widget.token);
       default:
         return Container();
     }

@@ -43,7 +43,7 @@ class FeminaeApp extends StatelessWidget {
       stream: authBloc.isSessionValid,
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data != 'None') {
-          return Dashboard();
+          return Dashboard(snapshot.data);
         } else {
           return LoginScreen();
         }

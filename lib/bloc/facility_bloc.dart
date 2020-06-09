@@ -9,17 +9,18 @@ class FacilityBloc {
   final BehaviorSubject<FacilityResponse> _subject =
       BehaviorSubject<FacilityResponse>();
 
-  getFacilities() async {
-    FacilityResponse response = await _repository.getFacilities();
+  getFacilities(String token, String facilityType) async {
+    FacilityResponse response = await _repository.getFacilities(token, facilityType);
     _subject.sink.add(response);
   }
 
-  movetoTab(int id, BuildContext context) async {
+  movetoTab(int id, BuildContext context, String token) async {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (c, a1, a2) => SalonDetail(
           tabIndex: id,
+          token: token,
         ),
         transitionsBuilder: (c, anim, a2, child) => FadeTransition(
           opacity: anim,

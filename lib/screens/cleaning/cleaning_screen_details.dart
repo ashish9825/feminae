@@ -6,8 +6,9 @@ class CleaningDetail extends StatefulWidget {
   static String id = 'cleaning_screen_details';
 
   final tabIndex;
+  final String token;
 
-  const CleaningDetail({Key key, this.tabIndex}) : super(key: key);
+  const CleaningDetail({Key key, this.tabIndex, @required this.token}) : super(key: key);
 
   @override
   _CleaningDetailState createState() => _CleaningDetailState();

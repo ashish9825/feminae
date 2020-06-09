@@ -2,38 +2,42 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:feminae/model/facility_response.dart';
 import 'package:feminae/model/facility_service_response.dart';
+import 'package:feminae/utils/constants.dart';
 import 'package:feminae/utils/logging_interceptor.dart';
 
 class FacilityApiProvider {
-  final String _endPoint = "https://feminae.herokuapp.com/salon";
+  final String _endPoint = ENDPOINT_URL;
   Dio _dio;
 
   FacilityApiProvider() {
-    BaseOptions options =
-        BaseOptions(receiveTimeout: 30000, connectTimeout: 30000);
-    _dio = Dio(options);
+    // BaseOptions options =
+    //     BaseOptions(receiveTimeout: 30000, connectTimeout: 30000);
+    _dio = Dio();
     _dio.interceptors.add(LoggingInterceptor());
   }
 
-  Future<FacilityResponse> getFacilities() async {
+  Future<FacilityResponse> getFacilities(
+      String token, String facilityType) async {
     try {
-      Response response = await _dio.get(_endPoint);
+      _dio.options.headers = {"token": token};
+      Response response = await _dio.get('$_endPoint/$facilityType');
 
-      final List facilities = jsonDecode(jsonEncode(response.data));
-      return FacilityResponse.fromJson(facilities);
+      return FacilityResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return FacilityResponse.withError(_handleError(error));
     }
   }
 
-  Future<FacilityServiceResponse> getFacilityServices(int id) async {
+  Future<FacilityServiceResponse> getFacilityServices(
+      int id, String token, String facilityType) async {
     try {
-      Response response = await _dio.get('$_endPoint/$id');
+      _dio.options.headers = {"token": token};
+      Response response = await _dio.get('$_endPoint/$facilityType/$id');
 
-      List jsonResponse = json.decode(jsonEncode(response.data));
-      print('Response : $jsonResponse[0]');
-      return FacilityServiceResponse.fromJson(jsonResponse[0]);
+      // List jsonResponse = json.decode(jsonEncode(response.data));
+      // print('Response : $jsonResponse[0]');
+      return FacilityServiceResponse.fromJson(response.data);
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return FacilityServiceResponse.withError(_handleError(error));

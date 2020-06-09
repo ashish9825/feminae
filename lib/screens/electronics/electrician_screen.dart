@@ -9,6 +9,8 @@ import 'package:feminae/constants.dart';
 class ElectricianScreen extends StatefulWidget {
   static String id = 'electrician_screen';
 
+  final String token;
+  ElectricianScreen(this.token);
   @override
   _ElectricianScreenState createState() => _ElectricianScreenState();
 }
@@ -161,6 +163,7 @@ class _ElectricianScreenState extends State<ElectricianScreen> {
                   PageRouteBuilder(
                     pageBuilder: (c, a1, a2) => ElectricianDetail(
                       tabIndex: index,
+                      token: widget.token,
                     ),
                     transitionsBuilder: (c, anim, a2, child) => FadeTransition(
                       opacity: anim,

@@ -4,23 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widgets/flutter_widgets.dart';
 
-class StichingScreen extends StatefulWidget {
-  static String id = 'salon_screen';
+class StitchingScreen extends StatefulWidget {
+  final String token;
+  StitchingScreen(this.token);
   @override
-  _StichingScreenState createState() => _StichingScreenState();
+  _StitchingScreenState createState() => _StitchingScreenState();
 }
 
-class _StichingScreenState extends State<StichingScreen>
+class _StitchingScreenState extends State<StitchingScreen>
     with SingleTickerProviderStateMixin {
   bool _showAppBar = false;
-  ScrollController _scrollController;
   bool isScrollingDown = true;
 
-@override
+  @override
   void initState() {
-    _scrollController = ScrollController();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);

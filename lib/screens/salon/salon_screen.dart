@@ -1,5 +1,3 @@
-import 'package:feminae/constants.dart';
-import 'package:feminae/screens/salon/salon_screen_details.dart';
 import 'package:feminae/utils/app_style.dart';
 import 'package:feminae/utils/size_config.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +12,9 @@ import 'package:feminae/widgets/loading_widget.dart';
 
 class SalonScreen extends StatefulWidget {
   static String id = 'salon_screen';
+
+  final String token;
+  SalonScreen(this.token);
   @override
   _SalonScreenState createState() => _SalonScreenState();
 }
@@ -27,7 +28,7 @@ class _SalonScreenState extends State<SalonScreen>
   @override
   void initState() {
     super.initState();
-    bloc.getFacilities();
+    bloc.getFacilities(widget.token, 'salon');
   }
 
   @override
@@ -154,7 +155,7 @@ class _SalonScreenState extends State<SalonScreen>
                 onTap: () {
                   print(data.facilities[index].facility);
                   bloc.movetoTab(
-                      data.facilities[index].facilityId - 1, context);
+                      int.parse(data.facilities[index].facilityId) - 1, context, widget.token);
                 },
                 child: Container(
                   margin: const EdgeInsets.symmetric(

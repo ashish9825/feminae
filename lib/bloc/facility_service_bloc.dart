@@ -7,9 +7,9 @@ class FacilityServiceBloc {
   final BehaviorSubject<FacilityServiceResponse> _subject =
       BehaviorSubject<FacilityServiceResponse>();
 
-  getFacilityServices(int id) async {
+  getFacilityServices(int id, String token, String facilityType) async {
     FacilityServiceResponse response =
-        await _repository.getFacilityServices(id);
+        await _repository.getFacilityServices(id, token, facilityType);
     _subject.sink.add(response);
   }
 

@@ -6,8 +6,9 @@ class ElectricianDetail extends StatefulWidget {
   static String id = 'electrician_detail_screen';
 
   final tabIndex;
+  final String token;
 
-  const ElectricianDetail({Key key, this.tabIndex}) : super(key: key);
+  const ElectricianDetail({Key key, this.tabIndex, @required this.token}) : super(key: key);
 
   @override
   _ElectricianDetailState createState() => _ElectricianDetailState();

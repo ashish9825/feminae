@@ -8,22 +8,32 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 class Dashboard extends StatefulWidget {
   static String id = 'dashboard_screen';
+
+  final String token;
+  Dashboard(this.token);
   @override
   _DashboardState createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
   int _currentTabIndex = 0;
-  List<Widget> _children = [
-    HomePage(),
-    Container(color: Colors.blue),
-    ProfileScreen(),
-  ];
+  List<Widget> _children;
 
   void _onItemTapped(int index) {
     setState(() {
       _currentTabIndex = index;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _children = [
+      HomePage(widget.token),
+      Container(color: Colors.blue),
+      ProfileScreen(widget.token),
+    ];
   }
 
   @override
@@ -93,7 +103,7 @@ class _DashboardState extends State<Dashboard> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ProfileScreen(),
+                  builder: (context) => ProfileScreen(widget.token),
                 ),
               );
             },

@@ -7,14 +7,14 @@ class FacilityRepository {
   FacilityApiProvider _apiProvider = FacilityApiProvider();
   final LoginApiProvider _loginApiProvider = LoginApiProvider();
 
-  Future<FacilityResponse> getFacilities() {
-    return _apiProvider.getFacilities();
+  Future<FacilityResponse> getFacilities(String token, String facilityType) {
+    return _apiProvider.getFacilities(token, facilityType);
   }
 
-  Future<FacilityServiceResponse> getFacilityServices(int id) {
-    return _apiProvider.getFacilityServices(id);
+  Future<FacilityServiceResponse> getFacilityServices(int id, String token, String facilityType) {
+    return _apiProvider.getFacilityServices(id, token, facilityType);
   }
 
-  Future<String> getLoginStatus(String email, password) =>
+  Future<String> getLoginStatus(String email, String password) =>
       _loginApiProvider.getLoginStatus(email, password);
 }

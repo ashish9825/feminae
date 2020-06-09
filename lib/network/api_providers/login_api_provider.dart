@@ -9,17 +9,26 @@ class LoginApiProvider {
   Future<String> getLoginStatus(String email, String password) async {
     _dio.options.contentType = Headers.formUrlEncodedContentType;
 
-    final formData = FormData.fromMap({
+    final formData = {
       'email': email,
       'password': password,
-    });
+    };
     try {
-      Response response = await _dio.post(_endPoint, data: formData);
+      Response response = await _dio.post(
+        '$_endPoint/auth/signin',
+        data: formData,
+      );
       print(LoginResponse.fromJson(response.data).login.token);
-      return LoginResponse.fromJson(response.data).login.token;
+
+      if (response.statusCode == 200) {
+        return LoginResponse.fromJson(response.data).login.token;
+      } else {
+        return LoginResponse.fromJson(response.data).error;
+      }
     } catch (error, stacktrace) {
       print('Exception Occured: $error StackTrace: $stacktrace');
-      return LoginResponse.withError(error).status;
+      print('RESPONSE :  ${error.toString().substring(error.toString().length-4, error.toString().length-1)}');
+      return LoginResponse.withError('$error').status;
     }
   }
 }
